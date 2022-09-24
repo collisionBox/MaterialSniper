@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "environment.h"
 #include "aim.h"
+#include "object.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
@@ -17,10 +18,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	}
 	
 	Aim aim;
+	Target target;
 	aim.Init();
+	target.Init();
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
+		ClearDrawScreen();
 		aim.Update();
+		target.Update();
 		
 
 		// — ‰æ–Ê‚Ì“à—e‚ð•\‰æ–Ê‚É”½‰f

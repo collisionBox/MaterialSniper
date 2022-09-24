@@ -10,16 +10,17 @@ public:
 	void Draw();
 	void Zoom();
 	void MouseBehavior();
+	const bool GetClick() { return isRightClick; }
+	const int GetMousePos() { return mouseX, mouseY; }
 
 private:
 	int handle;
 	int bgHandle;
-	int MaskScreen;
+	int crosshairHandle;
 	int TempScreen;
 	float Angle;
 	int mouseX, mouseY;
-	int i;
-	float x, y;
+	int x, y;
 	bool isRightClick;
 	float ExRate;//Šg‘å—¦
 	int prevMousePosX;

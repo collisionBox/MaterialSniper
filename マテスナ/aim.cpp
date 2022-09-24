@@ -7,10 +7,13 @@ Aim::Aim()
 	// âÊëúÇì«Ç›çûÇﬁ
 	handle = LoadGraph("img/test.png");
 	bgHandle = handle;
+	crosshairHandle = LoadGraph("img/crosshair.png");
 
 }
 Aim::~Aim()
 {
+	DeleteGraph(handle);
+	DeleteGraph(crosshairHandle);
 }
 void Aim::Init()
 {
@@ -41,9 +44,10 @@ void Aim::Draw()
 	if (isRightClick)
 	{
 		DrawRotaGraph2(prevMousePosX, prevMousePosY, prevMousePosX, prevMousePosY, ExRate, 0, handle, false);
+		DrawRotaGraph(prevMousePosX, prevMousePosY, 1, 0, crosshairHandle, true);
 	}
 	
-	DrawFormatString(50, 50, white, "%d\n%d", prevMousePosX, prevMousePosY);
+	//DrawFormatString(50, 50, white, "%d\n%d", prevMousePosX, prevMousePosY);
 
 }
 
@@ -51,6 +55,7 @@ void Aim::Zoom()
 {
 	MouseBehavior();
 	ExRate = magnificationRate;
+
 }
 
 void Aim::MouseBehavior()
