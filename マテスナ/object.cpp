@@ -5,7 +5,6 @@
 Target::Target()
 {
 	handle = LoadGraph("img/target.jpg");
-	bulletMarkHandle = LoadGraph("img/bulletMark.png");
 }
 
 Target::~Target()
@@ -14,22 +13,19 @@ Target::~Target()
 
 void Target::Init()
 {
-	x = 0;
-	y = 0;
-	exRate = defaultExRate;
+	x = 100;
+	y = 100;
 }
 
 void Target::Update()
 {
 	Behavior();
-	Draw();
 }
 
-void Target::Draw()
+void Target::Draw(float exRate)
 {
-
+	
 	DrawRotaGraph(x, y, exRate, 0,handle, false);
-	DrawRotaGraph(x, y, exRate, 0, bulletMarkHandle, true);
 }
 
 void Target::Behavior()

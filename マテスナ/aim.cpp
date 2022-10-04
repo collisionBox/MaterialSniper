@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "environment.h"
 #include "Aim.h"
+#include "object.h"
 
 Aim::Aim()
 {
@@ -21,7 +22,7 @@ void Aim::Init()
 	prevMousePosX = windowX / 2;
 	prevMousePosY = windowY / 2;
 }
-void Aim::Update()
+void Aim::Update(Target tag)
 {
 
 	if ((GetMouseInput() & MOUSE_INPUT_RIGHT) != 0)
@@ -35,15 +36,16 @@ void Aim::Update()
 		ExRate = 1.0f;
 		isRightClick = false;
 	}
-	Draw();
+	Draw(tag);
 }
 
-void Aim::Draw()
+void Aim::Draw(Target tag)
 {
-	DrawGraph(0, 0, bgHandle, false);
+
+	DrawRotaGraph2(prevMousePosX, prevMousePosY, prevMousePosX, prevMousePosY, ExRate, 0, handle, false);
+	tag.Draw(ExRate);
 	if (isRightClick)
 	{
-		DrawRotaGraph2(prevMousePosX, prevMousePosY, prevMousePosX, prevMousePosY, ExRate, 0, handle, false);
 		DrawRotaGraph(prevMousePosX, prevMousePosY, 1, 0, crosshairHandle, true);
 	}
 	

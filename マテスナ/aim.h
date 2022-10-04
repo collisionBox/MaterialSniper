@@ -1,17 +1,22 @@
 #pragma once
 
+class Target;
 class Aim
 {
 public:
 	Aim();
 	~Aim();
 	void Init();
-	void Update();
-	void Draw();
+	void Update(Target tag);
+	void Draw(Target tag);
 	void Zoom();
 	void MouseBehavior();
-	const bool GetClick() { return isRightClick; }
-	const int GetMousePos() { return mouseX, mouseY; }
+	//ターゲットに使用
+	float GetExRate() const { return ExRate; }
+	//弾痕に使用
+	bool GetIsClick() const { return isRightClick; }
+	int GetMousePosX() const { return mouseX; }
+	int GetMousePosY() const { return mouseY; }
 
 private:
 	int handle;
