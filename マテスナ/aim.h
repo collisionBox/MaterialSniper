@@ -15,8 +15,6 @@ public:
 	float GetExRate() const { return ExRate; }
 	//íeç≠Ç…égóp
 	bool GetIsClick() const { return isRightClick; }
-	int GetMousePosX() const { return mouseX; }
-	int GetMousePosY() const { return mouseY; }
 
 private:
 	int handle;

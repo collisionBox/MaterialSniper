@@ -22,6 +22,7 @@ void Aim::Init()
 	prevMousePosX = windowX / 2;
 	prevMousePosY = windowY / 2;
 }
+
 void Aim::Update(Target tag)
 {
 
@@ -29,6 +30,10 @@ void Aim::Update(Target tag)
 	{
 		Zoom();
 		isRightClick = true;
+		if (GetMouseInput() & MOUSE_INPUT_LEFT || CheckHitKey(KEY_INPUT_Z))
+		{
+			tag.HitTest(prevMousePosX, prevMousePosY);
+		}
 		
 	}
 	else if ((GetMouseInput() & MOUSE_INPUT_RIGHT) == 0)
@@ -36,17 +41,18 @@ void Aim::Update(Target tag)
 		ExRate = 1.0f;
 		isRightClick = false;
 	}
+	
 	Draw(tag);
 }
 
 void Aim::Draw(Target tag)
 {
 
-	DrawRotaGraph2(prevMousePosX, prevMousePosY, prevMousePosX, prevMousePosY, ExRate, 0, handle, false);
-	tag.Draw(ExRate);
+	DrawRotaGraph2(prevMousePosX, prevMousePosY, prevMousePosX, prevMousePosY, ExRate, 0, handle, false);//背景(マウスを中心に拡大)
+	tag.Draw(prevMousePosX, prevMousePosY, ExRate, isRightClick);//的
 	if (isRightClick)
 	{
-		DrawRotaGraph(prevMousePosX, prevMousePosY, 1, 0, crosshairHandle, true);
+		//DrawRotaGraph(prevMousePosX, prevMousePosY, 1, 0, crosshairHandle, true);//クロスヘア
 	}
 	
 	//DrawFormatString(50, 50, white, "%d\n%d", prevMousePosX, prevMousePosY);
@@ -63,7 +69,7 @@ void Aim::Zoom()
 void Aim::MouseBehavior()
 {
 	GetMousePoint(&mouseX, &mouseY);
-	if (mouseX <= 0)
+	/*if (mouseX <= 0)
 	{
 		mouseX = 0;
 	}
@@ -78,7 +84,9 @@ void Aim::MouseBehavior()
 	if (mouseY >= windowY)
 	{
 		mouseY = windowY;
-	}
+	}*/
 	prevMousePosX = mouseX;
 	prevMousePosY = mouseY;
+
+
 }

@@ -17,6 +17,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	{
 		return -1;	// エラーが起きたら直ちに終了
 	}
+	SetDrawScreen(DX_SCREEN_BACK);
+
 	float nowTime = 0;
 	float prevTime = nowTime;
 	float deltaTime;
@@ -29,18 +31,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	target.Init();
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
+
 		//FPS計算
 		nowTime = GetNowCount();
 		deltaTime = (nowTime - prevTime) / 1000.0f;
 		//画面初期化
 		ClearDrawScreen();
-
 		aim.Update(target);
 		target.Update();
+		
 
 		// 裏画面の内容を表画面に反映
-		ScreenFlip();
 		DrawFormatString(200, 200, white, "%f", deltaTime);
+		ScreenFlip();
 		prevTime = nowTime;
 	}
 	// ＤＸライブラリの後始末
