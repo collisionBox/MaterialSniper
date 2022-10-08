@@ -41,6 +41,10 @@ void Bullet::Draw()
 	
 }
 
+void Bullet::DrawBulletMark(bool& flag, int& X, int& Y)
+{
+}
+
 void Bullet::OnClicBehavior(int& posX, int& posY)
 {
 	if (!isClic)

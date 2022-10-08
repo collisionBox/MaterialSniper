@@ -32,7 +32,7 @@ void Aim::Update(Target tag)
 		isRightClick = true;
 		if (GetMouseInput() & MOUSE_INPUT_LEFT || CheckHitKey(KEY_INPUT_Z))
 		{
-			tag.HitTest(prevMousePosX, prevMousePosY);
+			tag.HitTest(prevMousePosX, prevMousePosY, isRightClick);
 		}
 		
 	}
@@ -47,8 +47,9 @@ void Aim::Update(Target tag)
 
 void Aim::Draw(Target tag)
 {
-
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
 	DrawRotaGraph2(prevMousePosX, prevMousePosY, prevMousePosX, prevMousePosY, ExRate, 0, handle, false);//îwåi(É}ÉEÉXÇíÜêSÇ…ägëÂ)
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 0);
 	tag.Draw(prevMousePosX, prevMousePosY, ExRate, isRightClick);//ìI
 	if (isRightClick)
 	{
@@ -69,7 +70,7 @@ void Aim::Zoom()
 void Aim::MouseBehavior()
 {
 	GetMousePoint(&mouseX, &mouseY);
-	/*if (mouseX <= 0)
+	if (mouseX <= 0)
 	{
 		mouseX = 0;
 	}
@@ -84,7 +85,7 @@ void Aim::MouseBehavior()
 	if (mouseY >= windowY)
 	{
 		mouseY = windowY;
-	}*/
+	}
 	prevMousePosX = mouseX;
 	prevMousePosY = mouseY;
 

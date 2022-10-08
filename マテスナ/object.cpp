@@ -29,21 +29,27 @@ void Target::Update()
 
 void Target::Draw(int mouseX, int mouseY, float exRate, bool flag)
 {
-	int zoomX = mouseX - x;
-	int zoomY = mouseY - y;
+	int prevX = mouseX - x;
+	int prevY = mouseY - y;
+	zoomX = x - prevX;
+	zoomY = y - prevY;
+	lx = x - imgHalfSize;
+	ly = y - imgHalfSize;
+	rx = x + imgHalfSize;
+	ry = y + imgHalfSize;
 	// 描画ブレンドモードをアルファブレンドにする
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 	//描画
-	if (flag)
+	if (flag)//エイム時
 	{
-		DrawRotaGraph(x-zoomX, y-zoomY,  exRate, 0, handle, false);
+		DrawRotaGraph(zoomX, zoomY, exRate, 0, handle, false);
+		
 	}
-	else
+	else//非エイム時
 	{
-		DrawRotaGraph(x, y, exRate, 0, handle, false);
+		DrawRotaGraph(x, y, 1, 0, handle, false);
+		
 	}
-	DrawFormatString(500, 500, red, "%d,%d", mouseX, mouseY);
-	DrawCircle(mouseX * -3 + (150 * 2 / 3), mouseY * -3  , 5, red, true);
 	// 描画ブレンドモードをノーブレンドに戻す。
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);	
 
@@ -68,13 +74,36 @@ void Target::Behavior()
 	
 }
 
-void Target::HitTest(int mouseX, int mouseY)
+void Target::HitTest(int& mouseX, int& mouseY, bool& flag)
 {
-	int lx = x - imgHalfSize;
-	int ly = y - imgHalfSize;
-	int rx = x + imgHalfSize;
-	int ry = y + imgHalfSize;
-	DrawBox(lx, ly, rx, ry, red, false);
+	if (flag)
+	{
+		lx = zoomX - (imgSize / 6 * 3 + imgSize);
+		ly = zoomY - (imgSize / 6 * 3 + imgSize);
+		rx = zoomX + (imgSize / 6 * 3 + imgSize);
+		ry = zoomY + (imgSize / 6 * 3 + imgSize);
+	}
+	else
+	{
+		lx = x - imgHalfSize;
+		ly = y - imgHalfSize;
+		rx = x + imgHalfSize;
+		ry = y + imgHalfSize;
+	}
+	int f = 0;
+	if (CheckHitKey(KEY_INPUT_M))
+	{
+		if (f)
+		{
+			f = false;
+		}
+		else
+		{
+			f = true;
+		}
+	}
+	DrawBox(lx, ly, rx, ry, red, f);
+
 	if (isAlive)
 	{
 		if (lx >= mouseX && ly >= mouseY &&
