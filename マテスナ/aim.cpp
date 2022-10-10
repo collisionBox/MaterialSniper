@@ -23,7 +23,7 @@ void Aim::Init()
 	prevMousePosY = windowY / 2;
 }
 
-void Aim::Update(Target tag)
+void Aim::Update(Target& tag)
 {
 
 	if ((GetMouseInput() & MOUSE_INPUT_RIGHT) != 0)
@@ -45,7 +45,7 @@ void Aim::Update(Target tag)
 	Draw(tag);
 }
 
-void Aim::Draw(Target tag)
+void Aim::Draw(Target& tag)
 {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
 	DrawRotaGraph2(prevMousePosX, prevMousePosY, prevMousePosX, prevMousePosY, ExRate, 0, handle, false);//îwåi(É}ÉEÉXÇíÜêSÇ…ägëÂ)

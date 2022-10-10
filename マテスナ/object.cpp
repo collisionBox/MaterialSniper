@@ -33,10 +33,7 @@ void Target::Draw(int mouseX, int mouseY, float exRate, bool flag)
 	int prevY = mouseY - y;
 	zoomX = x - prevX;
 	zoomY = y - prevY;
-	lx = x - imgHalfSize;
-	ly = y - imgHalfSize;
-	rx = x + imgHalfSize;
-	ry = y + imgHalfSize;
+
 	// 描画ブレンドモードをアルファブレンドにする
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 	//描画
@@ -52,6 +49,7 @@ void Target::Draw(int mouseX, int mouseY, float exRate, bool flag)
 	}
 	// 描画ブレンドモードをノーブレンドに戻す。
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);	
+	DrawFormatString(100, 800, black, "%d:%d\n%d:%d\n%d;%d", lx, ly, rx, ry, mouseX, mouseY);
 
 }
 
@@ -71,14 +69,13 @@ void Target::Behavior()
 		isAlive = true;
 	}
 	
-	
 }
 
 void Target::HitTest(int& mouseX, int& mouseY, bool& flag)
 {
 	if (flag)
 	{
-		lx = zoomX - (imgSize / 6 * 3 + imgSize);
+		lx = zoomX - (imgSize / 6 * 3 + imgSize);zoomの値がここで使われているかどうか確認
 		ly = zoomY - (imgSize / 6 * 3 + imgSize);
 		rx = zoomX + (imgSize / 6 * 3 + imgSize);
 		ry = zoomY + (imgSize / 6 * 3 + imgSize);

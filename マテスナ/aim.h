@@ -7,8 +7,8 @@ public:
 	Aim();
 	~Aim();
 	void Init();
-	void Update(Target tag);
-	void Draw(Target tag);
+	void Update(Target& tag);
+	void Draw(Target& tag);
 	void Zoom();
 	void MouseBehavior();
 	//ターゲットに使用
