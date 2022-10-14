@@ -12,8 +12,9 @@ Target::~Target()
 {
 }
 
-void Target::Init()
+void Target::Init(ObjType type)
 {
+	this->type = type;
 	x = 900;
 	y = 500;
 	alpha = 0;
@@ -27,7 +28,7 @@ void Target::Update()
 	Behavior();
 }
 
-void Target::Draw(int mouseX, int mouseY, float exRate, bool flag)
+void Target::Draw(int& mouseX, int& mouseY, float& exRate, bool& flag)
 {
 	int prevX = mouseX - x;
 	int prevY = mouseY - y;
@@ -73,9 +74,9 @@ void Target::Behavior()
 
 void Target::HitTest(int& mouseX, int& mouseY, bool& flag)
 {
-	if (flag)
+	if (flag)//ズーム状態
 	{
-		lx = zoomX - (imgSize / 6 * 3 + imgSize);zoomの値がここで使われているかどうか確認
+		lx = zoomX - (imgSize / 6 * 3 + imgSize);
 		ly = zoomY - (imgSize / 6 * 3 + imgSize);
 		rx = zoomX + (imgSize / 6 * 3 + imgSize);
 		ry = zoomY + (imgSize / 6 * 3 + imgSize);
@@ -87,26 +88,14 @@ void Target::HitTest(int& mouseX, int& mouseY, bool& flag)
 		rx = x + imgHalfSize;
 		ry = y + imgHalfSize;
 	}
-	int f = 0;
-	if (CheckHitKey(KEY_INPUT_M))
-	{
-		if (f)
-		{
-			f = false;
-		}
-		else
-		{
-			f = true;
-		}
-	}
-	DrawBox(lx, ly, rx, ry, red, f);
-
+	
 	if (isAlive)
 	{
-		if (lx >= mouseX && ly >= mouseY &&
-			rx <= mouseX && ry <= mouseY)
+		if (lx <= mouseX && ly <= mouseY &&
+			rx >= mouseX && ry >= mouseY)
 		{
 			isHit = true;
 		}
 	}
 }
+

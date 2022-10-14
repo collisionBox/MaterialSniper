@@ -28,10 +28,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	Bullet bullet;
 	
 	aim.Init();
-	target.Init();
+	target.Init(STOP);
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
-
+		
 		//FPSŒvŽZ
 		nowTime = GetNowCount();
 		deltaTime = (nowTime - prevTime) / 1000.0f;
@@ -39,8 +39,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		ClearDrawScreen();
 		aim.Update(target);
 		target.Update();
-		
-
 		// — ‰æ–Ê‚Ì“à—e‚ð•\‰æ–Ê‚É”½‰f
 		DrawFormatString(200, 200, white, "%f", deltaTime);
 		ScreenFlip();

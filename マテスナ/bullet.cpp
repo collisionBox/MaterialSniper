@@ -1,15 +1,16 @@
 #include "DxLib.h"
 #include "environment.h"
 #include "bullet.h"
-
+#include "object.h"
+Target tag;
 Bullet::Bullet()
 {
-	handle = LoadGraph("img/bulletMark.png");
+	Markhandle = LoadGraph("img/bulletMark.png");
 }
 
 Bullet::~Bullet()
 {
-	DeleteGraph(handle);
+	DeleteGraph(Markhandle);
 }
 
 void Bullet::Init()
@@ -17,41 +18,24 @@ void Bullet::Init()
 
 }
 
-void Bullet::Update(bool& flag, int& posX, int& posY)
+void Bullet::Update( int& posX, int& posY, float& exRate)
 {
-	if (flag)
+	if (tag.getIsHit() == true)
 	{
-		if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0)
-		{
-			OnClicBehavior(posX, posY);
-			isClic = true;
-			drawFlag = true;
-			
-		}
+		x = posX;
+		y = posY;
+		DrawBulletMark(exRate);
 	}
-	Draw();
 }
 
 void Bullet::Draw()
 {
-	if (drawFlag)
-	{
-		DrawRotaGraph(x, y, 1, 0, handle, true);
-	}
+}
+
+void Bullet::DrawBulletMark(float& exRate)
+{
+	
+	DrawRotaGraph(x, y, exRate, 0, Markhandle, true);
 	
 }
 
-void Bullet::DrawBulletMark(bool& flag, int& X, int& Y)
-{
-}
-
-void Bullet::OnClicBehavior(int& posX, int& posY)
-{
-	if (!isClic)
-	{
-		x = posX;
-		y = posY;
-	}
-	
-
-}

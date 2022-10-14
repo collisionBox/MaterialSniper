@@ -1,13 +1,17 @@
 #pragma once
-
+enum ObjType
+{
+	STOP,
+	MOVE
+};
 class Target
 {
 public:
 	Target();
 	~Target();
-	void Init();
+	void Init(ObjType type);
 	void Update();
-	void Draw(int mouseX, int mouseY, float exRate, bool flag);
+	void Draw(int& mouseX, int& mouseY, float& exRate, bool& flag);
 	void Behavior();
 	void HitTest(int& mouseX, int& mouseY, bool& flag);
 	int GetAlpha() const { return alpha; }
@@ -19,6 +23,7 @@ private:
 	bool fadeFlag;
 	const int deltaAlphaNum = 30;
 	int x, y, z;
+	int type;
 	int zoomX, zoomY;
 	int rx, ry, lx, ly;
 	int speed;

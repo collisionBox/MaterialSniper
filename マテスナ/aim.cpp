@@ -19,6 +19,7 @@ Aim::~Aim()
 void Aim::Init()
 {
 	isRightClick = false;
+	isLeftClick = false;
 	prevMousePosX = windowX / 2;
 	prevMousePosY = windowY / 2;
 }
@@ -32,7 +33,7 @@ void Aim::Update(Target& tag)
 		isRightClick = true;
 		if (GetMouseInput() & MOUSE_INPUT_LEFT || CheckHitKey(KEY_INPUT_Z))
 		{
-			tag.HitTest(prevMousePosX, prevMousePosY, isRightClick);
+			tag.HitTest(mouseX, mouseY, isRightClick);
 		}
 		
 	}
