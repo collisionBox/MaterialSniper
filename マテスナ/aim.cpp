@@ -1,8 +1,6 @@
 #include "DxLib.h"
 #include "environment.h"
-#include "Aim.h"
-#include "object.h"
-#include "bullet.h"
+
 Aim::Aim()
 {
 	// 画像を読み込む
@@ -61,6 +59,8 @@ void Aim::Draw(Target& tag, Bullet& bullet)
 	//DrawFormatString(50, 50, white, "%d\n%d", prevMousePosX, prevMousePosY);
 
 }
+https://dxlib.xsrv.jp/function/dxfunc_graph1.html#R3N26S1
+ブレンドモードで使えんかね
 
 void Aim::Zoom()
 {

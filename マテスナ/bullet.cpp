@@ -1,8 +1,6 @@
 #include "DxLib.h"
 #include "environment.h"
-#include "bullet.h"
-#include "object.h"
-#include "aim.h"
+
 Bullet::Bullet()
 {
 	Markhandle = LoadGraph("img/bulletMark.png");
@@ -15,21 +13,25 @@ Bullet::~Bullet()
 
 void Bullet::Init()
 {
-
+	drawFlag = false;
+	fireFlag = false;
 }
 
 void Bullet::Update(Aim& aim, Target& tag)
 {
-
-	if (tag.GetIsHit() == true)
+	if (tag.GetIsHit() == true )
 	{
-		drawFlag = true;
-		x = aim.GetMouseX();
-		y = aim.GetMouseY();
-		if (tag.GetType() == MOVE)
+		if (!fireFlag)
 		{
-			x += tag.GetSpeed();
-
+			x = aim.GetMouseX();
+			y = aim.GetMouseY();
+			fireFlag = true;
+		}
+		else if (fireFlag)
+		{
+			
+			drawFlag = true;
+			
 		}
 	}
 }
@@ -38,12 +40,20 @@ void Bullet::Draw()
 {
 }
 
-void Bullet::DrawBulletMark(float& exRate)
+void Bullet::DrawBulletMark(int& zoomX, int& zoomY, int& mouseX, int& mouseY, float& exRate, bool& flag)
 {
 	if (drawFlag)
 	{
-		DrawRotaGraph(x, y, exRate, 0, Markhandle, true);
-
+		int prevX = mouseX - x;
+		int prevY = mouseY - y;
+		int zoomX = x - prevX;
+		int zoomY = y - prevY;
+		if (flag)
+		{
+			DrawRotaGraph(zoomX, zoomY, exRate, 0, Markhandle, true);
+		}
+		
+		DrawFormatString(500, 500, black, " %d %d", zoomX, zoomY);
 	}
 	
 }

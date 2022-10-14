@@ -1,8 +1,5 @@
 #include "DxLib.h"
 #include "environment.h"
-#include "aim.h"
-#include "Bullet.h"
-#include "object.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
@@ -26,9 +23,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	Aim aim;
 	Target target;
 	Bullet bullet;
-	
+	//èâä˙âª
 	aim.Init();
 	target.Init(STOP);
+	bullet.Init();
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		

@@ -1,8 +1,6 @@
 #include "DxLib.h"
 #include "environment.h"
-#include "object.h"
-#include "bullet.h"
-#include <math.h>
+
 Target::Target()
 {
 	handle = LoadGraph("img/target.jpg");
@@ -16,7 +14,7 @@ Target::~Target()
 void Target::Init(ObjType type)
 {
 	this->type = type;
-	x = 900;
+	x = 1500;
 	y = 500;
 	alpha = 0;
 	fadeFlag = false;
@@ -29,13 +27,14 @@ void Target::Update()
 	Behavior();
 }
 
-void Target::Draw(int& mouseX, int& mouseY, float& exRate, bool& flag, Bullet& bullet)
+void Target::Draw(int& mouseX, int& mouseY, float& exRate, bool& flag,
+	Bullet& bullet)
 {
 	int prevX = mouseX - x;
 	int prevY = mouseY - y;
 	zoomX = x - prevX;
 	zoomY = y - prevY;
-
+	
 	// 描画ブレンドモードをアルファブレンドにする
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 	//描画
@@ -49,7 +48,7 @@ void Target::Draw(int& mouseX, int& mouseY, float& exRate, bool& flag, Bullet& b
 		DrawRotaGraph(x, y, 1, 0, handle, false);
 		
 	}
-	bullet.DrawBulletMark(exRate);
+	bullet.DrawBulletMark(zoomX,zoomY, mouseX, mouseY, exRate, flag);
 
 	// 描画ブレンドモードをノーブレンドに戻す。
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);	
