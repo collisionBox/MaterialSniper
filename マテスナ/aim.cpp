@@ -2,7 +2,7 @@
 #include "environment.h"
 #include "Aim.h"
 #include "object.h"
-
+#include "bullet.h"
 Aim::Aim()
 {
 	// 画像を読み込む
@@ -24,7 +24,7 @@ void Aim::Init()
 	prevMousePosY = windowY / 2;
 }
 
-void Aim::Update(Target& tag)
+void Aim::Update(Target& tag, Bullet& bullet)
 {
 
 	if ((GetMouseInput() & MOUSE_INPUT_RIGHT) != 0)
@@ -43,15 +43,16 @@ void Aim::Update(Target& tag)
 		isRightClick = false;
 	}
 	
-	Draw(tag);
+	Draw(tag,bullet);
+	
 }
 
-void Aim::Draw(Target& tag)
+void Aim::Draw(Target& tag, Bullet& bullet)
 {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
 	DrawRotaGraph2(prevMousePosX, prevMousePosY, prevMousePosX, prevMousePosY, ExRate, 0, handle, false);//背景(マウスを中心に拡大)
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 0);
-	tag.Draw(prevMousePosX, prevMousePosY, ExRate, isRightClick);//的
+	tag.Draw(prevMousePosX, prevMousePosY, ExRate, isRightClick,bullet);//的
 	if (isRightClick)
 	{
 		//DrawRotaGraph(prevMousePosX, prevMousePosY, 1, 0, crosshairHandle, true);//クロスヘア

@@ -35,10 +35,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		//FPSŒvZ
 		nowTime = GetNowCount();
 		deltaTime = (nowTime - prevTime) / 1000.0f;
+
 		//‰æ–Ê‰Šú‰»
 		ClearDrawScreen();
-		aim.Update(target);
+		aim.Update(target,bullet);
 		target.Update();
+		bullet.Update(aim, target);
 		// — ‰æ–Ê‚Ì“à—e‚ğ•\‰æ–Ê‚É”½‰f
 		DrawFormatString(200, 200, white, "%f", deltaTime);
 		ScreenFlip();

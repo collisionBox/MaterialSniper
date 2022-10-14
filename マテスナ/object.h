@@ -4,6 +4,8 @@ enum ObjType
 	STOP,
 	MOVE
 };
+class Bullet;
+
 class Target
 {
 public:
@@ -11,11 +13,14 @@ public:
 	~Target();
 	void Init(ObjType type);
 	void Update();
-	void Draw(int& mouseX, int& mouseY, float& exRate, bool& flag);
+	void Draw(int& mouseX, int& mouseY, float& exRate, bool& flag, Bullet& bullet);
 	void Behavior();
 	void HitTest(int& mouseX, int& mouseY, bool& flag);
 	int GetAlpha() const { return alpha; }
-	bool getIsHit() const { return isHit; }
+	bool GetIsHit() const { return isHit; }
+	int GetType() const { return type; }
+	int GetSpeed() const { return speed; }
+
 private:
 	int handle;
 	int alpha;

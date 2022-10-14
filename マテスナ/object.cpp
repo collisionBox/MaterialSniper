@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "environment.h"
 #include "object.h"
+#include "bullet.h"
 #include <math.h>
 Target::Target()
 {
@@ -28,7 +29,7 @@ void Target::Update()
 	Behavior();
 }
 
-void Target::Draw(int& mouseX, int& mouseY, float& exRate, bool& flag)
+void Target::Draw(int& mouseX, int& mouseY, float& exRate, bool& flag, Bullet& bullet)
 {
 	int prevX = mouseX - x;
 	int prevY = mouseY - y;
@@ -48,6 +49,8 @@ void Target::Draw(int& mouseX, int& mouseY, float& exRate, bool& flag)
 		DrawRotaGraph(x, y, 1, 0, handle, false);
 		
 	}
+	bullet.DrawBulletMark(exRate);
+
 	// 描画ブレンドモードをノーブレンドに戻す。
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);	
 	DrawFormatString(100, 800, black, "%d:%d\n%d:%d\n%d;%d", lx, ly, rx, ry, mouseX, mouseY);

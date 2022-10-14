@@ -2,7 +2,7 @@
 #include "environment.h"
 #include "bullet.h"
 #include "object.h"
-Target tag;
+#include "aim.h"
 Bullet::Bullet()
 {
 	Markhandle = LoadGraph("img/bulletMark.png");
@@ -18,13 +18,19 @@ void Bullet::Init()
 
 }
 
-void Bullet::Update( int& posX, int& posY, float& exRate)
+void Bullet::Update(Aim& aim, Target& tag)
 {
-	if (tag.getIsHit() == true)
+
+	if (tag.GetIsHit() == true)
 	{
-		x = posX;
-		y = posY;
-		DrawBulletMark(exRate);
+		drawFlag = true;
+		x = aim.GetMouseX();
+		y = aim.GetMouseY();
+		if (tag.GetType() == MOVE)
+		{
+			x += tag.GetSpeed();
+
+		}
 	}
 }
 
@@ -34,8 +40,11 @@ void Bullet::Draw()
 
 void Bullet::DrawBulletMark(float& exRate)
 {
-	
-	DrawRotaGraph(x, y, exRate, 0, Markhandle, true);
+	if (drawFlag)
+	{
+		DrawRotaGraph(x, y, exRate, 0, Markhandle, true);
+
+	}
 	
 }
 

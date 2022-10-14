@@ -1,14 +1,14 @@
 #pragma once
-
 class Target;
+class Bullet;
 class Aim
 {
 public:
 	Aim();
 	~Aim();
 	void Init();
-	void Update(Target& tag);
-	void Draw(Target& tag);
+	void Update(Target& tag, Bullet& bullet);
+	void Draw(Target& tag, Bullet& bullet);
 	void Zoom();
 	void MouseBehavior();
 	//ターゲットに使用
@@ -25,6 +25,7 @@ private:
 	int crosshairHandle;
 	int TempScreen;
 	float Angle;
+	
 	int mouseX, mouseY;
 	int x, y;
 	bool isRightClick;
@@ -32,7 +33,6 @@ private:
 	float ExRate;//拡大率
 	int prevMousePosX;
 	int prevMousePosY;
-
 	const float  magnificationRate = 3.0f;//ズーム倍率
 };
 

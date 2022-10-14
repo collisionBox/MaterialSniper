@@ -1,4 +1,6 @@
 #pragma once
+class Aim;
+class Target;
 
 class Bullet
 {
@@ -6,9 +8,9 @@ public:
 	Bullet();
 	~Bullet();
 	void Init();
-	void Update(bool& flag, int& posX, int& posY, float& exRate);
+	void Update(Aim& aim, Target& tag);
 	void Draw();
-	void DrawBulletMark(bool& flag, float& exRate);
+	void DrawBulletMark(float& exRate);
 
 private:
 	int Markhandle;
