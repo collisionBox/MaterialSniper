@@ -19,7 +19,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	float nowTime = 0;
 	float prevTime = nowTime;
 	float deltaTime;
-
+	float startTime = GetNowCount();
+	float gameTime;
 	Aim aim;
 	Target target;
 	Bullet bullet;
@@ -33,14 +34,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		//FPSåvéZ
 		nowTime = GetNowCount();
 		deltaTime = (nowTime - prevTime) / 1000.0f;
-
+		gameTime = (nowTime - startTime) /1000.0f;
 		//âÊñ èâä˙âª
 		ClearDrawScreen();
 		aim.Update(target,bullet);
 		target.Update();
 		bullet.Update(aim, target);
 		// ó†âÊñ ÇÃì‡óeÇï\âÊñ Ç…îΩâf
-		DrawFormatString(200, 200, white, "%f", deltaTime);
+		DrawFormatString(200, 200, white, "%f\n%f", deltaTime,gameTime);
 		ScreenFlip();
 		prevTime = nowTime;
 	}

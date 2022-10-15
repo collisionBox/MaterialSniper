@@ -53,14 +53,12 @@ void Aim::Draw(Target& tag, Bullet& bullet)
 	tag.Draw(prevMousePosX, prevMousePosY, ExRate, isRightClick,bullet);//的
 	if (isRightClick)
 	{
-		//DrawRotaGraph(prevMousePosX, prevMousePosY, 1, 0, crosshairHandle, true);//クロスヘア
+		DrawRotaGraph(prevMousePosX, prevMousePosY, 1, 0, crosshairHandle, true);//クロスヘア
 	}
 	
 	//DrawFormatString(50, 50, white, "%d\n%d", prevMousePosX, prevMousePosY);
 
 }
-https://dxlib.xsrv.jp/function/dxfunc_graph1.html#R3N26S1
-ブレンドモードで使えんかね
 
 void Aim::Zoom()
 {
@@ -88,7 +86,7 @@ void Aim::MouseBehavior()
 	{
 		mouseY = windowY;
 	}
-	prevMousePosX = mouseX;
+	prevMousePosX = mouseX ;
 	prevMousePosY = mouseY;
 
 
