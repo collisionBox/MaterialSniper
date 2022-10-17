@@ -19,7 +19,7 @@ void Bullet::Init()
 
 void Bullet::Update(Aim& aim, Target& tag)
 {
-	if (tag.GetIsHit() == true )
+	if (tag.GetIsHit())
 	{
 		if (!fireFlag)
 		{
@@ -29,10 +29,16 @@ void Bullet::Update(Aim& aim, Target& tag)
 		}
 		else if (fireFlag)
 		{
-			
 			drawFlag = true;
 			
 		}
+	}
+
+	if (!tag.GetAlive())
+	{
+		fireFlag = false;
+		drawFlag = false;
+		tag.SetIsHit();
 	}
 }
 

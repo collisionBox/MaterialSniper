@@ -4,8 +4,11 @@
 Target::Target()
 {
 	handle = LoadGraph("img/target.jpg");
-
-	filterHandle = LoadGraph("img/target.jpg");;
+	GetGraphSize(handle, &imgSizeX, &imgSizeY);
+	imgHalfSizeX = imgSizeX / 2;
+	imgHalfSizeY = imgSizeY / 2;
+	zoomCalculation = imgSizeX / 6 * 3 + imgSizeX;
+	filterHandle = LoadGraph("img/target.jpg");
 	GraphFilter(filterHandle, DX_GRAPH_FILTER_GAUSS, 16, 80);
 	alpha = 0;
 }
@@ -16,19 +19,21 @@ Target::~Target()
 
 void Target::Init(ObjType type)
 {
+	x = GetRand(1920 - imgSizeX) + imgHalfSizeX;
+	y = GetRand(1080 - imgSizeY) + imgHalfSizeY;
+
 	this->type = type;
-	x = 1500;
-	y = 500;
 	r = 10;
 	alpha = 0;
 	fadeFlag = false;
 	isAlive = false;
+	prevAlive = false;
 	isHit = false;
 }
 
-void Target::Update()
+void Target::Update(float& gameTime)
 {
-	Behavior();
+	Behavior(gameTime);
 }
 
 void Target::Draw(int& mouseX, int& mouseY, float& exRate, bool& flag,
@@ -59,7 +64,7 @@ void Target::Draw(int& mouseX, int& mouseY, float& exRate, bool& flag,
 	// 描画ブレンドモードをノーブレンドに戻す。
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);	
 	DrawFormatString(100, 800, black, "%d:%d\n%d:%d\n%d;%d", lx, ly, rx, ry, mouseX, mouseY);
-	
+	//DrawBox(imgHalfSizeX, imgHalfSizeY, 1920 - imgHalfSizeX, 1080 - imgHalfSizeY, red, true);
 	int X = abs(mouseX - this->x);
 	for (int i = maxR; i >= 0; i -= 5)
 	{
@@ -72,25 +77,55 @@ void Target::Draw(int& mouseX, int& mouseY, float& exRate, bool& flag,
 	}
 }
 
-void Target::Behavior()
+void Target::Behavior(float& gameTime)
 {
-	if (CheckHitKey(KEY_INPUT_SPACE))
+	/*if (CheckHitKey(KEY_INPUT_SPACE))
 	{
 		fadeFlag = true;
 		
+	}*/
+
+	if (!isAlive && !prevAlive)
+	{
+
+		fadeFlag = true;
 	}
-	if (fadeFlag && alpha <= 255)
+
+
+	if (fadeFlag)
 	{
 		alpha += deltaAlphaNum;
+		if (alpha >= 255)
+		{
+			isAlive = true;
+			fadeFlag = false;
+			prevAlive = isAlive;
+		}
 	}
-	if (alpha >= 255)
+	
+
+	if (prevAlive && !isAlive)
 	{
-		isAlive = true;
+		if (gameTime - deadTime > waitTime)
+		{
+			alpha -= deltaAlphaNum;
+		}
+		
+		
+		if (alpha < 0)
+		{
+			prevAlive = isAlive;
+			x = GetRand(1920 - imgSizeX) + imgHalfSizeX;
+			y = GetRand(1080 - imgSizeY) + imgHalfSizeY;
+
+		}
+		
+		
 	}
 	
 }
 
-void Target::HitTest(int& mouseX, int& mouseY, bool& flag)
+void Target::HitTest(int& mouseX, int& mouseY, bool& flag, float& gameTime)
 {
 	if (flag)//ズーム状態
 	{
@@ -101,10 +136,10 @@ void Target::HitTest(int& mouseX, int& mouseY, bool& flag)
 	}
 	else
 	{
-		lx = x - imgHalfSize;
-		ly = y - imgHalfSize;
-		rx = x + imgHalfSize;
-		ry = y + imgHalfSize;
+		lx = x - imgHalfSizeX;
+		ly = y - imgHalfSizeY;
+		rx = x + imgHalfSizeX;
+		ry = y + imgHalfSizeY;
 	}
 	
 	if (isAlive)
@@ -119,6 +154,8 @@ void Target::HitTest(int& mouseX, int& mouseY, bool& flag)
 			//if ()
 			{
 				isHit = true;
+				isAlive = false;
+				deadTime = gameTime;
 			}
 		}
 	}

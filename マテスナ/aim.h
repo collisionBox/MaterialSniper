@@ -7,10 +7,10 @@ public:
 	Aim();
 	~Aim();
 	void Init();
-	void Update(Target& tag, Bullet& bullet);
+	void Update(Target& tag, Bullet& bullet, float& gameTime, float& deltaTime);
 	void Draw(Target& tag, Bullet& bullet);
-	void Zoom();
-	void MouseBehavior();
+	void Zoom(float& time, float& deltaTime);
+	void MouseBehavior(float& time, float& deltaTime);
 	//ターゲットに使用
 	float GetExRate() const { return ExRate; }
 	int GetMouseX()const { return mouseX; }

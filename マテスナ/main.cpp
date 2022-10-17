@@ -34,15 +34,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		//FPS計算
 		nowTime = GetNowCount();
 		deltaTime = (nowTime - prevTime) / 1000.0f;
-		gameTime = (nowTime - startTime) /1000.0f;
+		gameTime = (nowTime - startTime) / 1000.0f;
+
 		//画面初期化
 		ClearDrawScreen();
-		aim.Update(target,bullet);
-		target.Update();
+
+		aim.Update(target,bullet,gameTime, deltaTime);
+		target.Update(gameTime);
 		bullet.Update(aim, target);
+
 		// 裏画面の内容を表画面に反映
 		DrawFormatString(200, 200, white, "%f\n%f", deltaTime,gameTime);
+		
 		ScreenFlip();
+
 		prevTime = nowTime;
 	}
 	// ＤＸライブラリの後始末

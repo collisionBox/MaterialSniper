@@ -22,16 +22,16 @@ void Aim::Init()
 	prevMousePosY = windowY / 2;
 }
 
-void Aim::Update(Target& tag, Bullet& bullet)
+void Aim::Update(Target& tag, Bullet& bullet, float& gameTime, float& deltaTime)
 {
 
 	if ((GetMouseInput() & MOUSE_INPUT_RIGHT) != 0)
 	{
-		Zoom();
+		Zoom(gameTime, deltaTime);
 		isRightClick = true;
 		if (GetMouseInput() & MOUSE_INPUT_LEFT || CheckHitKey(KEY_INPUT_Z))
 		{
-			tag.HitTest(mouseX, mouseY, isRightClick);
+			tag.HitTest(mouseX, mouseY, isRightClick, gameTime);
 		}
 		
 	}
@@ -57,17 +57,17 @@ void Aim::Draw(Target& tag, Bullet& bullet)
 	}
 	
 	//DrawFormatString(50, 50, white, "%d\n%d", prevMousePosX, prevMousePosY);
-
+	DrawCircle(prevMousePosX, prevMousePosY, 5, red, true);
 }
 
-void Aim::Zoom()
+void Aim::Zoom(float& time, float& deltaTime)
 {
-	MouseBehavior();
+	MouseBehavior(time, deltaTime);
 	ExRate = magnificationRate;
 
 }
 
-void Aim::MouseBehavior()
+void Aim::MouseBehavior(float& time, float& deltaTime)
 {
 	GetMousePoint(&mouseX, &mouseY);
 	if (mouseX <= 0)
@@ -86,8 +86,8 @@ void Aim::MouseBehavior()
 	{
 		mouseY = windowY;
 	}
-	prevMousePosX = mouseX ;
+	prevMousePosX = mouseX;
 	prevMousePosY = mouseY;
-
-
+	//prevMousePosX += cos(time / 2)*100 *deltaTime;
+	//prevMousePosY += sin(time * 2) *100* deltaTime;
 }
