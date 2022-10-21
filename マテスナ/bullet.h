@@ -10,7 +10,7 @@ public:
 	void Init();
 	void Update(Aim& aim, Target& tag);
 	void Draw();
-	void DrawBulletMark(int& zoomX, int& zoomY, int& mouseX, int& mouseY, float& exRate, bool& flag);
+	void DrawBulletMark(float& mouseX, float& mouseY, float& exRate, bool& flag);
 
 private:
 	int Markhandle;

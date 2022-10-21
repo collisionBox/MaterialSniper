@@ -11,18 +11,18 @@ Target::Target()
 	filterHandle = LoadGraph("img/target.jpg");
 	GraphFilter(filterHandle, DX_GRAPH_FILTER_GAUSS, 16, 80);
 	alpha = 0;
+	Init();
 }
 
 Target::~Target()
 {
 }
 
-void Target::Init(ObjType type)
+void Target::Init()
 {
 	x = GetRand(1920 - imgSizeX) + imgHalfSizeX;
 	y = GetRand(1080 - imgSizeY) + imgHalfSizeY;
 
-	this->type = type;
 	r = 10;
 	alpha = 0;
 	fadeFlag = false;
@@ -36,7 +36,7 @@ void Target::Update(float& gameTime)
 	Behavior(gameTime);
 }
 
-void Target::Draw(int& mouseX, int& mouseY, float& exRate, bool& flag,
+void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
 	Bullet& bullet)
 {
 	int prevX = mouseX - x;
@@ -50,17 +50,17 @@ void Target::Draw(int& mouseX, int& mouseY, float& exRate, bool& flag,
 	if (flag)//エイム時
 	{
 		DrawRotaGraph(zoomX, zoomY, exRate, 0, handle, false);
-		DrawCircle(zoomX, zoomY, (minR + (5 * 9 ))*3, green, false);
+		DrawCircle(zoomX, zoomY, (minR + (0 * 9 ))*3, green, false);
 
 	}
 	else//非エイム時
 	{
  		
-		DrawRotaGraph(x, y, 1, 0, filterHandle, false);
+		DrawRotaGraph(x, y, onNozoomExRate, 0, filterHandle, false);
 		DrawCircle(x, y, minR+(5*9), green, false);
 
 	}
-	bullet.DrawBulletMark(zoomX,zoomY, mouseX, mouseY, exRate, flag);
+	bullet.DrawBulletMark(mouseX, mouseY, exRate, flag);
 	// 描画ブレンドモードをノーブレンドに戻す。
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);	
 	DrawFormatString(100, 800, black, "%d:%d\n%d:%d\n%d;%d", lx, ly, rx, ry, mouseX, mouseY);
@@ -144,12 +144,18 @@ void Target::HitTest(int& mouseX, int& mouseY, bool& flag, float& gameTime)
 	
 	if (isAlive)
 	{
-		
 		if (lx <= mouseX && ly <= mouseY &&
 			rx >= mouseX && ry >= mouseY)
 		{
-			
-			int x = abs(mouseX - this->x);
+			float x = abs(mouseX - this->x);
+			float y = abs(mouseY - this->y);
+			float distance = sqrtf(x * x + y * y);
+			if (distance <= minR + (0 * 9) * 3)//クリティカル判定
+			{
+				//printfDx("hit");
+
+			}
+				
 			
 			//if ()
 			{

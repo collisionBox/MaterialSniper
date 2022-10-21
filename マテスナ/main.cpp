@@ -24,10 +24,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	Aim aim;
 	Target target;
 	Bullet bullet;
+	Director director;
 	//‰Šú‰»
 	aim.Init();
-	target.Init(STOP);
+	target.Init();
 	bullet.Init();
+	Game game;
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		
@@ -38,11 +40,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 		//‰æ–Ê‰Šú‰»
 		ClearDrawScreen();
-
-		aim.Update(target,bullet,gameTime, deltaTime);
+		game.game(gameTime, deltaTime);
+		/*aim.Update(target,bullet,gameTime, deltaTime);
 		target.Update(gameTime);
 		bullet.Update(aim, target);
-
+		director.Update(target, bullet, aim, gameTime);*/
 		// — ‰æ–Ê‚Ì“à—e‚ğ•\‰æ–Ê‚É”½‰f
 		DrawFormatString(200, 200, white, "%f\n%f", deltaTime,gameTime);
 		

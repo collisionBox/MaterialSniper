@@ -11,9 +11,9 @@ class Target
 public:
 	Target();
 	~Target();
-	void Init(ObjType type);
+	void Init();
 	void Update(float& gameTime);
-	void Draw(int& mouseX, int& mouseY, float& exRate, bool& flag, Bullet& bullet);
+	void Draw(float mouseX, float mouseY, float& exRate, bool& flag, Bullet& bullet);
 	void Behavior(float& gameTime);
 	void HitTest(int& mouseX, int& mouseY, bool& flag, float& gameTime);
 
@@ -44,7 +44,7 @@ private:
 	int rx, ry, lx, ly;
 	int speed;
 	int vx, vy;
-	const float defaultExRate = 0.2;
+	const float onNozoomExRate = 0.4;
 	bool isHit;
 	int imgSizeX;
 	int imgSizeY;

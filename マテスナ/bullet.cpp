@@ -4,6 +4,7 @@
 Bullet::Bullet()
 {
 	Markhandle = LoadGraph("img/bulletMark.png");
+	Init();
 }
 
 Bullet::~Bullet()
@@ -46,7 +47,7 @@ void Bullet::Draw()
 {
 }
 
-void Bullet::DrawBulletMark(int& zoomX, int& zoomY, int& mouseX, int& mouseY, float& exRate, bool& flag)
+void Bullet::DrawBulletMark(float& mouseX, float& mouseY, float& exRate, bool& flag)
 {
 	if (drawFlag)
 	{
@@ -57,10 +58,12 @@ void Bullet::DrawBulletMark(int& zoomX, int& zoomY, int& mouseX, int& mouseY, fl
 		if (flag)
 		{
 			DrawRotaGraph(zoomX, zoomY, exRate, 0, Markhandle, true);
+			DrawFormatString(100, 100, green, "%f:%f", zoomX, zoomY);
 		}
-		
-		DrawFormatString(500, 500, black, " %d %d", zoomX, zoomY);
+		printfDx("%f:%f", zoomX, zoomY);
+
 	}
-	
 }
+照準と弾痕のずれの修正
+具体的な値を画面にだして確認　prevMousePosXらとzoomXらの
 
