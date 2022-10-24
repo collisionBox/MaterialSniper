@@ -47,23 +47,28 @@ void Bullet::Draw()
 {
 }
 
-void Bullet::DrawBulletMark(float& mouseX, float& mouseY, float& exRate, bool& flag)
+void Bullet::DrawBulletMark(float& mouseX, float& mouseY, int& objX, int& objY, float& exRate, bool& flag)
 {
+	if (!drawFlag)
+	{
+		int prevX = objX - mouseX;
+		int prevY = objY - mouseY;
+		x = objX - prevX;
+		y = objY - prevY;
+	}
 	if (drawFlag)
 	{
 		int prevX = mouseX - x;
 		int prevY = mouseY - y;
 		int zoomX = x - prevX;
 		int zoomY = y - prevY;
+		
 		if (flag)
 		{
 			DrawRotaGraph(zoomX, zoomY, exRate, 0, Markhandle, true);
-			DrawFormatString(100, 100, green, "%f:%f", zoomX, zoomY);
 		}
-		printfDx("%f:%f", zoomX, zoomY);
 
 	}
 }
-照準と弾痕のずれの修正
-具体的な値を画面にだして確認　prevMousePosXらとzoomXらの
+
 

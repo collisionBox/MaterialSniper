@@ -44,7 +44,7 @@ private:
 	int rx, ry, lx, ly;
 	int speed;
 	int vx, vy;
-	const float onNozoomExRate = 0.4;
+	const float onNozoomExRate = 0.4f;
 	bool isHit;
 	int imgSizeX;
 	int imgSizeY;

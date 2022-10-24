@@ -97,7 +97,6 @@ void Aim::MouseBehavior(Target& tag, float& gameTime, float& deltaTime)
 			magazin -= 1;
 			tag.HitTest(mouseX, mouseY, isRightClick, gameTime);
 			fireFlag = false;
-			printfDx("%f:%f\n", prevMousePosX, prevMousePosY);
 
 		}
 	}
