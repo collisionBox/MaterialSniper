@@ -5,7 +5,7 @@
 Director::Director()
 {
 	bulletHandle = CreateFontToHandle(NULL, 40, 4);
-	reloadStringHandle = CreateFontToHandle(NULL, 20, 3);
+	reloadStringHandle = CreateFontToHandle(NULL, 30, 3);
 	Init();
 }
 Director::~Director()
@@ -25,6 +25,8 @@ void Director::Update(Target& tag, Bullet& bullet, Aim& aim, float& gameTime)
 
 void Director::Draw(Target& tag, Bullet& bullet, Aim& aim, float& gameTime)
 {
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+	DrawBox(x - 5, y - 40, x + 125, y + 55, GetColor(150, 150, 150), true);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 	DrawFormatStringToHandle(x, y - 30, white, reloadStringHandle, "Reload");
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);

@@ -18,17 +18,21 @@ void Bullet::Init()
 	fireFlag = false;
 }
 
-void Bullet::Update(Aim& aim, Target& tag)
+void Bullet::Update(Aim& aim, Target& tag, float gameTime)
 {
+	if (!tag.GetIsHit())
+	{
+		x = aim.GetMouseX();
+		y = aim.GetMouseY();
+
+	}
 	if (tag.GetIsHit())
 	{
 		if (!fireFlag)
 		{
-			x = aim.GetMouseX();
-			y = aim.GetMouseY();
 			fireFlag = true;
 		}
-		else if (fireFlag)
+		else if (fireFlag )
 		{
 			drawFlag = true;
 			
@@ -55,13 +59,15 @@ void Bullet::DrawBulletMark(float& mouseX, float& mouseY, int& objX, int& objY, 
 		int prevY = objY - mouseY;
 		x = objX - prevX;
 		y = objY - prevY;
+		
 	}
+	
 	if (drawFlag)
 	{
 		int prevX = mouseX - x;
 		int prevY = mouseY - y;
-		int zoomX = x - prevX;
-		int zoomY = y - prevY;
+		zoomX = x - prevX;
+		zoomY = y - prevY;
 		
 		if (flag)
 		{

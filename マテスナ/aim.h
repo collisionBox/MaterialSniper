@@ -35,7 +35,11 @@ private:
 	const int carriedNumMax = maxMagazin * 7;
 	const float reloadTime = 1.7f;
 	float nowTime;
-
+	float cameraShake;
+	float bleathStop = 10.0f;
+	float omega;
+	float v;
+	const float nomalCameraShake = 15.0f;
 	bool fireFlag;
 	bool reloadFlag;
 	int mouseX, mouseY;

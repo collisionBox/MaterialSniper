@@ -8,7 +8,7 @@ public:
 	Bullet();
 	~Bullet();
 	void Init();
-	void Update(Aim& aim, Target& tag);
+	void Update(Aim& aim, Target& tag, float gameTime);
 	void Draw();
 	void DrawBulletMark(float& mouseX, float&mouseY, int& objX, int& objY, float& exRate, bool& flag);
 
@@ -17,5 +17,6 @@ private:
 	int x, y, z;
 	bool fireFlag;
 	bool drawFlag;
+	int zoomX, zoomY;
 };
 

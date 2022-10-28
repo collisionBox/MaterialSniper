@@ -46,7 +46,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		bullet.Update(aim, target);
 		director.Update(target, bullet, aim, gameTime);*/
 		// — ‰æ–Ê‚Ì“à—e‚ð•\‰æ–Ê‚É”½‰f
-		DrawFormatString(200, 200, white, "%f\n%f", deltaTime,gameTime);
+		DrawFormatString(200, 200, white, "delta:%f\ntime:%f", deltaTime,gameTime);
 		
 		ScreenFlip();
 

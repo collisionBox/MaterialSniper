@@ -16,7 +16,7 @@ Aim::~Aim()
 	DeleteGraph(lectilHandle);
 	DeleteGraph(scorpHandle);
 }
-void Aim::Init()
+void Aim::Init()//初期化
 {
 	isRightClick = false;
 	isLeftClick = false;
@@ -25,8 +25,8 @@ void Aim::Init()
 	nowTime = 0;
 	magazin = maxMagazin + 1;
 	carriedNum = carriedNumMax - maxMagazin;
-	prevMousePosX = windowX / 2;
-	prevMousePosY = windowY / 2;
+	x = windowX / 2;
+	y = windowY / 2;
 	aimming = lectilHandle;
 }
 
@@ -41,21 +41,24 @@ void Aim::Update(Target& tag, Bullet& bullet, float& gameTime, float& deltaTime)
 
 void Aim::Draw(Target& tag, Bullet& bullet)
 {
+	//デバッグ用に背景を薄くする
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
-	DrawRotaGraph2(prevMousePosX, prevMousePosY, prevMousePosX, prevMousePosY, ExRate, 0, handle, false);//背景(マウスを中心に拡大)
+	DrawRotaGraph2(x, y, x, y, ExRate, 0, handle, false);//背景(マウスを中心に拡大)
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 0);
-	tag.Draw(prevMousePosX, prevMousePosY, ExRate, isRightClick,bullet);//的
-	
-	//DrawRotaGraph(prevMousePosX, prevMousePosY, 1, 0, aimming, true);//クロスヘア
 
-	DrawFormatString(50, 50, green, "%f:%f", prevMousePosX,prevMousePosY);
-	DrawCircle(prevMousePosX, prevMousePosY, 5, red, true);
+	tag.Draw(x, y, ExRate, isRightClick,bullet);//的
+	
+	DrawRotaGraph(x, y, 1, 0, aimming, true);//クロスヘア
+
+	DrawFormatString(50, 50, green, "%f:%f", x,y);
+	DrawCircle(x, y, 5, red, true);
 	
 }
 
 void Aim::MouseBehavior(Target& tag, float& gameTime, float& deltaTime)
 {
 	GetMousePoint(&mouseX, &mouseY);
+	//画面外にでないようにする
 	if (mouseX <= 0)
 	{
 		mouseX = 0;
@@ -72,25 +75,35 @@ void Aim::MouseBehavior(Target& tag, float& gameTime, float& deltaTime)
 	{
 		mouseY = windowY;
 	}
-	prevMousePosX = mouseX;
-	prevMousePosY = mouseY;
-	prevMousePosX += cos(gameTime)*15;
-	prevMousePosY += sin(gameTime*2)*15;
-	
-	if ((GetMouseInput() & MOUSE_INPUT_RIGHT) != 0)
+	x = mouseX;
+	y = mouseY;
+	//右クリック（エイム）処理
+	if ((GetMouseInput() & MOUSE_INPUT_RIGHT) != 0)//押されているとき
 	{
+		//LShift（息止め）処理
+		if (CheckHitKey(KEY_INPUT_LSHIFT) != 0)//押されているとき
+		{
+			omega = 0.008;
+		}
+		else if (CheckHitKey(KEY_INPUT_LSHIFT) == 0)//押されていないとき
+		{
+			omega = 0.012f;
+		}	
+		v += omega;
+		x += 15 * cos(v);
+		y += 15 * sin(v * 2);
 		ExRate = magnificationRate;
 		aimming = scorpHandle;
 		isRightClick = true;
 
 	}
-	else if ((GetMouseInput() & MOUSE_INPUT_RIGHT) == 0)
+	else if ((GetMouseInput() & MOUSE_INPUT_RIGHT) == 0)//押されていないとき
 	{
 		ExRate = 1.0f;
 		aimming = lectilHandle;
 		isRightClick = false;
 	}
-	if (fireFlag)
+	if (fireFlag)//弾を撃ったら
 	{
 		if (GetMouseInput() & MOUSE_INPUT_LEFT || CheckHitKey(KEY_INPUT_Z))
 		{

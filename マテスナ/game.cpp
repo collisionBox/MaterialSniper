@@ -10,7 +10,7 @@ void Game::Update(float& gameTime, float& deltaTime)
 {
 	aim.Update(target, bullet, gameTime, deltaTime);
 	target.Update(gameTime);
-	bullet.Update(aim, target);
+	bullet.Update(aim, target, gameTime);
 	director.Update(target, bullet, aim, gameTime);
 }
 
