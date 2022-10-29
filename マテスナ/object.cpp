@@ -31,9 +31,9 @@ void Target::Init()
 	isHit = false;
 }
 
-void Target::Update(float& gameTime)
+void Target::Update(Bullet& bul, float& gameTime)
 {
-	Behavior(gameTime);
+	Behavior(bul,gameTime);
 }
 
 void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
@@ -79,28 +79,30 @@ void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
 			//DrawCircle(x, y, i, green, false);
 		}
 	}
+	DrawFormatString(100, 500, green, "%f", deadTime);
 }
 
-void Target::Behavior(float& gameTime)
+void Target::Behavior(Bullet& bul,float& gameTime)
 {
 	/*if (CheckHitKey(KEY_INPUT_SPACE))
 	{
 		fadeFlag = true;
 		
 	}*/
-
+#if 1
 	if (!isAlive && !prevAlive)
 	{
 
 		fadeFlag = true;
 	}
 
-#if 1
+
 	if (fadeFlag)
 	{
 		alpha += deltaAlphaNum;
 		if (alpha >= 255)
 		{
+			alpha = 255;
 			isAlive = true;
 			fadeFlag = false;
 			prevAlive = isAlive;
@@ -110,15 +112,20 @@ void Target::Behavior(float& gameTime)
 
 	if (prevAlive && !isAlive)
 	{
-		if (gameTime - deadTime > waitTime)
+		if (bul.GetImpactFlag())
 		{
-			alpha -= deltaAlphaNum;
+			if (gameTime - deadTime > waitTime)
+			{
+				alpha -= deltaAlphaNum;
+			}
 		}
+		
 		
 		
 		if (alpha < 0)
 		{
 			prevAlive = isAlive;
+			bul.SetImpactFlag();
 			x = GetRand(1920 - imgSizeX) + imgHalfSizeX;
 			y = GetRand(1080 - imgSizeY) + imgHalfSizeY;
 
@@ -127,7 +134,35 @@ void Target::Behavior(float& gameTime)
 		
 	}
 #else
-
+	
+	if (!isAlive)
+	{
+		fadeFlag = true;
+	}
+	if (isAlive)
+	{
+		if (!bul.GetImpactFlag() && gameTime - deadTime > waitTime)
+		{
+			alpha -= deltaAlphaNum;
+		}
+		if (alpha < 0)
+		{
+			isAlive = false;
+			x = GetRand(1920 - imgSizeX) + imgHalfSizeX;
+			y = GetRand(1080 - imgSizeY) + imgHalfSizeY;
+		}
+		
+	}
+	if (fadeFlag)
+	{
+		alpha += deltaAlphaNum;
+		if (alpha >= 255)
+		{
+			isAlive = true;
+			fadeFlag = false;
+		}
+	}
+	
 #endif
 }
 
@@ -166,7 +201,6 @@ void Target::HitTest(int& mouseX, int& mouseY, bool& flag, float& gameTime)
 			{
 				isHit = true;
 				isAlive = false;
-				deadTime = gameTime;
 			}
 		}
 	}

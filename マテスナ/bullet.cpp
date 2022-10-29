@@ -16,6 +16,7 @@ void Bullet::Init()
 {
 	drawFlag = false;
 	fireFlag = false;
+	impactFlag = false;
 }
 
 void Bullet::Update(Aim& aim, Target& tag, float gameTime)
@@ -37,7 +38,7 @@ void Bullet::Update(Aim& aim, Target& tag, float gameTime)
 			this->x = tag.GetX() - prevX;
 			this->y = tag.GetY() - prevY;
 			drawFlag = true;
-			//tag.SetIsAlive();
+			impactFlag = true;
 		}
 	}
 
@@ -46,6 +47,11 @@ void Bullet::Update(Aim& aim, Target& tag, float gameTime)
 		fireFlag = false;
 		drawFlag = false;
 		tag.SetIsHit();
+	}
+	if (!impactFlag)
+	{
+		tag.SetDeadTime(gameTime);
+
 	}
 }
 
