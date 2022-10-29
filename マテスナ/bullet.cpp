@@ -20,10 +20,6 @@ void Bullet::Init()
 
 void Bullet::Update(Aim& aim, Target& tag, float gameTime)
 {
-	if (!tag.GetIsHit())
-	{
-
-	}
 	if (tag.GetIsHit())
 	{
 		if (!fireFlag)
@@ -36,11 +32,12 @@ void Bullet::Update(Aim& aim, Target& tag, float gameTime)
 			impactTime = gameTime;
 			fireFlag = true;
 		}
-		else if (fireFlag )
+		else if (fireFlag && gameTime - impactTime > 1.5)
 		{
 			this->x = tag.GetX() - prevX;
 			this->y = tag.GetY() - prevY;
 			drawFlag = true;
+			//tag.SetIsAlive();
 		}
 	}
 

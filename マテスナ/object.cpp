@@ -95,7 +95,7 @@ void Target::Behavior(float& gameTime)
 		fadeFlag = true;
 	}
 
-
+#if 1
 	if (fadeFlag)
 	{
 		alpha += deltaAlphaNum;
@@ -126,7 +126,9 @@ void Target::Behavior(float& gameTime)
 		
 		
 	}
-	
+#else
+
+#endif
 }
 
 void Target::HitTest(int& mouseX, int& mouseY, bool& flag, float& gameTime)
