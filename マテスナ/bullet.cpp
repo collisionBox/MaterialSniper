@@ -3,7 +3,7 @@
 
 Bullet::Bullet()
 {
-	Markhandle = LoadGraph("img/bulletMark.png");
+	Markhandle = LoadGraph("img/bulletMarkOriginal.png");
 	Init();
 }
 
@@ -49,7 +49,7 @@ void Bullet::Update(Aim& aim, Target& tag, float gameTime)
 		
 		this->x = tag.GetX() - prevX;
 		this->y = tag.GetY() - prevY;
-		if (!drawFlag && gameTime > impactTime + 1.5)
+		if (!drawFlag && gameTime > impactTime )
 		{
 			drawFlag = true;
 			impactFlag = true;
@@ -73,7 +73,7 @@ void Bullet::DrawBulletMark(float& mouseX, float& mouseY, int& objX, int& objY, 
 			DrawGraph(x, y, Markhandle, false);
 			DrawRotaGraph(x, y, exRate, 0, Markhandle, true);
 		}
-
+		
 	}
 }
 

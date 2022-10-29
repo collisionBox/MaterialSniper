@@ -88,7 +88,7 @@ void Target::Behavior(float& gameTime, Bullet bul)
 	}
 	
 
-	if (bul.GetImpactFlag())
+	if (bul.GetImpactFlag() != 0)
 	{
 		if (gameTime - bul.GetImpactTime() > waitTime)
 		{
