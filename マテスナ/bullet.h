@@ -12,7 +12,6 @@ public:
 	void Draw();
 	void DrawBulletMark(float& mouseX, float&mouseY, int& objX, int& objY, float& exRate, bool& flag);
 	bool GetImpactFlag() const{ return impactFlag; }
-	void SetImpactFlag() { impactFlag = false; }
 private:
 	int Markhandle;
 	int x, y, z;

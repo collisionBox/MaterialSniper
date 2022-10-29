@@ -125,7 +125,6 @@ void Target::Behavior(Bullet& bul,float& gameTime)
 		if (alpha < 0)
 		{
 			prevAlive = isAlive;
-			bul.SetImpactFlag();
 			x = GetRand(1920 - imgSizeX) + imgHalfSizeX;
 			y = GetRand(1080 - imgSizeY) + imgHalfSizeY;
 
