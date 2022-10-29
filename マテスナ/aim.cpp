@@ -42,7 +42,7 @@ void Aim::Update(Target& tag, Bullet& bullet, float& gameTime, float& deltaTime)
 void Aim::Draw(Target& tag, Bullet& bullet)
 {
 	//デバッグ用に背景を薄くする
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 	DrawRotaGraph2(x, y, x, y, ExRate, 0, handle, false);//背景(マウスを中心に拡大)
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 0);
 

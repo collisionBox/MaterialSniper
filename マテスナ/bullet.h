@@ -11,12 +11,15 @@ public:
 	void Update(Aim& aim, Target& tag, float gameTime);
 	void Draw();
 	void DrawBulletMark(float& mouseX, float&mouseY, int& objX, int& objY, float& exRate, bool& flag);
-
+	float GetImpactTime()const { return impactTime; }
+	bool GetImpactFlag() const { return impactFlag; }
 private:
 	int Markhandle;
 	int x, y, z;
 	bool fireFlag;
 	bool drawFlag;
-	int zoomX, zoomY;
+	int prevX, prevY;
+	float impactTime;
+	bool impactFlag;
 };
 

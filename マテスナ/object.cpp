@@ -23,17 +23,15 @@ void Target::Init()
 	x = GetRand(1920 - imgSizeX) + imgHalfSizeX;
 	y = GetRand(1080 - imgSizeY) + imgHalfSizeY;
 
-	r = 10;
 	alpha = 0;
 	fadeFlag = false;
 	isAlive = false;
-	prevAlive = false;
 	isHit = false;
 }
 
-void Target::Update(float& gameTime)
+void Target::Update(float& gameTime, Bullet bul)
 {
-	Behavior(gameTime);
+	Behavior(gameTime, bul);
 }
 
 void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
@@ -64,34 +62,17 @@ void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
 		DrawCircle(x, y, minR+(5*9), green, false);
 
 	}
-	//bullet.DrawBulletMark(mouseX, mouseY, exRate, flag);
 	// 描画ブレンドモードをノーブレンドに戻す。
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);	
 	DrawFormatString(100, 800, green, "%d:%d\n%d:%d\n%d;%d", x,y,zoomX,zoomY,mouseX,mouseY);
 	//DrawBox(imgHalfSizeX, imgHalfSizeY, 1920 - imgHalfSizeX, 1080 - imgHalfSizeY, red, true);
 	int X = abs(mouseX - this->x);
-	for (int i = maxR; i >= 0; i -= 5)
-	{
-
-
-		if (i < X)
-		{
-			//DrawCircle(x, y, i, green, false);
-		}
-	}
 }
 
-void Target::Behavior(float& gameTime)
+void Target::Behavior(float& gameTime, Bullet bul)
 {
-	/*if (CheckHitKey(KEY_INPUT_SPACE))
+	if (!isAlive)
 	{
-		fadeFlag = true;
-		
-	}*/
-
-	if (!isAlive && !prevAlive)
-	{
-
 		fadeFlag = true;
 	}
 
@@ -103,14 +84,13 @@ void Target::Behavior(float& gameTime)
 		{
 			isAlive = true;
 			fadeFlag = false;
-			prevAlive = isAlive;
 		}
 	}
 	
 
-	if (prevAlive && !isAlive)
+	if (bul.GetImpactFlag())
 	{
-		if (gameTime - deadTime > waitTime)
+		if (gameTime - bul.GetImpactTime() > waitTime)
 		{
 			alpha -= deltaAlphaNum;
 		}
@@ -118,7 +98,7 @@ void Target::Behavior(float& gameTime)
 		
 		if (alpha < 0)
 		{
-			prevAlive = isAlive;
+			isAlive = false;
 			x = GetRand(1920 - imgSizeX) + imgHalfSizeX;
 			y = GetRand(1080 - imgSizeY) + imgHalfSizeY;
 
@@ -163,8 +143,6 @@ void Target::HitTest(int& mouseX, int& mouseY, bool& flag, float& gameTime)
 			//if ()
 			{
 				isHit = true;
-				isAlive = false;
-				deadTime = gameTime;
 			}
 		}
 	}

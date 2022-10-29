@@ -12,9 +12,9 @@ public:
 	Target();
 	~Target();
 	void Init();
-	void Update(float& gameTime);
+	void Update(float& gameTime, Bullet bul);
 	void Draw(float mouseX, float mouseY, float& exRate, bool& flag, Bullet& bullet);
-	void Behavior(float& gameTime);
+	void Behavior(float& gameTime, Bullet bul);
 	void HitTest(int& mouseX, int& mouseY, bool& flag, float& gameTime);
 
 	int GetAlpha() const { return alpha; }
@@ -22,22 +22,21 @@ public:
 	void SetIsHit() { isHit = false; }
 	int GetType() const { return type; }
 	int GetSpeed() const { return speed; }
-	bool GetAlive() const { return prevAlive; }
+	bool GetAlive() const { return isAlive; }
+	int GetX() const { return zoomX; }
+	int GetY() const { return zoomY; }
 
 private:
 
 	int handle;
 	int filterHandle;
 	int alpha;
-	int r;
 	const int minR = 12;
 	const int maxR = minR + (5 * 9);
 	bool isAlive;
-	bool prevAlive;
 	bool fadeFlag;
 	const int deltaAlphaNum = 30;
-	float deadTime;
-	const float waitTime = 1.5f;
+	const float waitTime = 2.0f;
 	int x, y, z;
 	int type;
 	int zoomX, zoomY;
