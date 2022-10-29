@@ -23,6 +23,8 @@ public:
 	int GetType() const { return type; }
 	int GetSpeed() const { return speed; }
 	bool GetAlive() const { return prevAlive; }
+	int GetX() const { return zoomX; }
+	int GetY() const { return zoomY; }
 
 private:
 

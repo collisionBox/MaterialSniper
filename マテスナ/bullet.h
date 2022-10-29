@@ -17,6 +17,7 @@ private:
 	int x, y, z;
 	bool fireFlag;
 	bool drawFlag;
-	int zoomX, zoomY;
+	int prevX, prevY;
+	float impactTime;
 };
 
