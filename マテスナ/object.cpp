@@ -22,7 +22,7 @@ void Target::Init()
 {
 	x = GetRand(1920 - imgSizeX) + imgHalfSizeX;
 	y = GetRand(1080 - imgSizeY) + imgHalfSizeY;
-
+	z = 10;
 	r = 10;
 	alpha = 0;
 	fadeFlag = false;
@@ -80,16 +80,16 @@ void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
 		}
 	}
 	DrawFormatString(100, 500, green, "%f", deadTime);
+
 }
 
-void Target::Behavior(Bullet& bul,float& gameTime)
+void Target::Behavior(Bullet& bul, float& gameTime)
 {
 	/*if (CheckHitKey(KEY_INPUT_SPACE))
 	{
 		fadeFlag = true;
-		
+
 	}*/
-#if 1
 	if (!isAlive && !prevAlive)
 	{
 
@@ -108,7 +108,7 @@ void Target::Behavior(Bullet& bul,float& gameTime)
 			prevAlive = isAlive;
 		}
 	}
-	
+
 
 	if (prevAlive && !isAlive)
 	{
@@ -119,9 +119,9 @@ void Target::Behavior(Bullet& bul,float& gameTime)
 				alpha -= deltaAlphaNum;
 			}
 		}
-		
-		
-		
+
+
+
 		if (alpha < 0)
 		{
 			prevAlive = isAlive;
@@ -129,43 +129,10 @@ void Target::Behavior(Bullet& bul,float& gameTime)
 			y = GetRand(1080 - imgSizeY) + imgHalfSizeY;
 
 		}
-		
-		
-	}
-#else
-	
-	if (!isAlive)
-	{
-		fadeFlag = true;
-	}
-	if (isAlive)
-	{
-		if (!bul.GetImpactFlag() && gameTime - deadTime > waitTime)
-		{
-			alpha -= deltaAlphaNum;
-		}
-		if (alpha < 0)
-		{
-			isAlive = false;
-			x = GetRand(1920 - imgSizeX) + imgHalfSizeX;
-			y = GetRand(1080 - imgSizeY) + imgHalfSizeY;
-		}
-		
-	}
-	if (fadeFlag)
-	{
-		alpha += deltaAlphaNum;
-		if (alpha >= 255)
-		{
-			isAlive = true;
-			fadeFlag = false;
-		}
-	}
-	
-#endif
-}
 
-void Target::HitTest(int& mouseX, int& mouseY, bool& flag, float& gameTime)
+	}
+}
+void Target::HitTest(int& mouseX, int& mouseY, bool flag, float& gameTime)
 {
 	if (flag)//ÉYÅ[ÉÄèÛë‘
 	{
@@ -181,7 +148,7 @@ void Target::HitTest(int& mouseX, int& mouseY, bool& flag, float& gameTime)
 		rx = x + imgHalfSizeX;
 		ry = y + imgHalfSizeY;
 	}
-	
+
 	if (isAlive)
 	{
 		if (lx <= mouseX && ly <= mouseY &&
@@ -194,10 +161,11 @@ void Target::HitTest(int& mouseX, int& mouseY, bool& flag, float& gameTime)
 			{
 
 			}
-				
-			
+
+
 			//if ()
 			{
+				deadTime = gameTime;
 				isHit = true;
 				isAlive = false;
 			}

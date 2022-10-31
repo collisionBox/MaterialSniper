@@ -15,7 +15,7 @@ public:
 	void Update(Bullet& bul, float& gameTime);
 	void Draw(float mouseX, float mouseY, float& exRate, bool& flag, Bullet& bullet);
 	void Behavior(Bullet& bul, float& gameTime);
-	void HitTest(int& mouseX, int& mouseY, bool& flag, float& gameTime);
+	void HitTest(int& mouseX, int& mouseY, bool flag, float& gameTime);
 
 	int GetAlpha() const { return alpha; }
 	bool GetIsHit() const { return isHit; }
@@ -26,7 +26,8 @@ public:
 	void SetIsAlive() { isAlive = false; }
 	int GetX() const { return zoomX; }
 	int GetY() const { return zoomY; }
-	void SetDeadTime(float gameTime) { deadTime = gameTime; }
+	int GetZ()const { return z; }
+	
 
 private:
 

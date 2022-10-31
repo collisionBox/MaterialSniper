@@ -19,9 +19,10 @@ void Bullet::Init()
 	impactFlag = false;
 }
 
-void Bullet::Update(Aim& aim, Target& tag, float gameTime)
-{
-	if (tag.GetIsHit())
+void Bullet::Update(Aim& aim, Target& tag, float& gameTime, float& deltaTime)
+{	
+	//if (tag.GetIsHit())
+	if(aim.GetIsLeftClick())
 	{
 		if (!fireFlag)
 		{
@@ -30,16 +31,32 @@ void Bullet::Update(Aim& aim, Target& tag, float gameTime)
 			//ターゲットを原点として弾痕の座標を計算
 			prevX = tag.GetX() - x;
 			prevY = tag.GetY() - y;
-			impactTime = gameTime;
 			fireFlag = true;
 		}
-		else if (fireFlag && gameTime - impactTime > 1.5)
+		
+	}
+	if (fireFlag)
+	{
+		if (tag.GetZ() > z)
 		{
-			this->x = tag.GetX() - prevX;
-			this->y = tag.GetY() - prevY;
-			drawFlag = true;
-			impactFlag = true;
+			z += initialV * deltaTime;
 		}
+		if (tag.GetZ() < z)
+		{
+			tag.HitTest(x, y, aim.GetIsClick(), gameTime);
+			z = 0;
+			impactFlag = true;
+
+		}
+		
+
+		this->x = tag.GetX() - prevX;
+		this->y = tag.GetY() - prevY;
+	}
+	if (tag.GetIsHit())
+	{
+		drawFlag = true;
+
 	}
 
 	if (!tag.GetAlive())
@@ -47,11 +64,6 @@ void Bullet::Update(Aim& aim, Target& tag, float gameTime)
 		fireFlag = false;
 		drawFlag = false;
 		tag.SetIsHit();
-	}
-	if (!impactFlag)
-	{
-		tag.SetDeadTime(gameTime);
-
 	}
 }
 

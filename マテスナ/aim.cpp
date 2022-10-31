@@ -108,14 +108,14 @@ void Aim::MouseBehavior(Target& tag, float& gameTime, float& deltaTime)
 		if (GetMouseInput() & MOUSE_INPUT_LEFT || CheckHitKey(KEY_INPUT_Z))
 		{
 			magazin -= 1;
-			tag.HitTest(mouseX, mouseY, isRightClick, gameTime);
 			fireFlag = false;
-
+			isLeftClick = true;
 		}
 	}
 	if (!fireFlag && !(GetMouseInput() & MOUSE_INPUT_LEFT || CheckHitKey(KEY_INPUT_Z)))
 	{
 		fireFlag = true;
+		isLeftClick = false;
 	}
 	
 	MagazinDirector(gameTime);
