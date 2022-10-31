@@ -1,8 +1,8 @@
 #pragma once
 enum ObjType
 {
-	STOP,
-	MOVE
+	ESCORT,
+	VIRUS,
 };
 class Bullet;
 
