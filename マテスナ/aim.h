@@ -13,8 +13,8 @@ public:
 	void MagazinDirector(float& gameTime);
 	//ターゲットに使用
 	float GetExRate() const { return ExRate; }
-	int GetMouseX()const { return mouseX; }
-	int GetMouseY()const { return mouseY; }
+	int GetMouseX()const { return x; }
+	int GetMouseY()const { return y; }
 	bool GetIsLeftClick()const { return isLeftClick; }
 	//弾痕に使用
 	bool GetIsClick() const { return isRightClick; }

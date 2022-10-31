@@ -3,7 +3,7 @@
 
 Bullet::Bullet()
 {
-	Markhandle = LoadGraph("img/bulletMarkOriginal.png");
+	Markhandle = LoadGraph("img/bulletMark.png");
 	Init();
 }
 
@@ -14,46 +14,56 @@ Bullet::~Bullet()
 
 void Bullet::Init()
 {
-	impactTime = 0;
-	impactFlag = false;
 	drawFlag = false;
 	fireFlag = false;
+	impactFlag = false;
 }
 
-void Bullet::Update(Aim& aim, Target& tag, float gameTime)
-{
+void Bullet::Update(Aim& aim, Target& tag, float& gameTime, float& deltaTime)
+{	
+	//if (tag.GetIsHit())
+	if(aim.GetIsLeftClick())
+	{
+		if (!fireFlag)
+		{
+			int x = aim.GetMouseX();
+			int y = aim.GetMouseY();
+			//ターゲットを原点として弾痕の座標を計算
+			prevX = tag.GetX() - x;
+			prevY = tag.GetY() - y;
+			fireFlag = true;
+		}
+		
+	}
+	if (fireFlag)
+	{
+		if (tag.GetZ() > z)
+		{
+			z += initialV * deltaTime;
+		}
+		if (tag.GetZ() < z)
+		{
+			tag.HitTest(x, y, aim.GetIsClick(), gameTime);
+			z = 0;
+			impactFlag = true;
+
+		}
+		
+
+		this->x = tag.GetX() - prevX;
+		this->y = tag.GetY() - prevY;
+	}
 	if (tag.GetIsHit())
 	{
-		fireFlag = true;
-
+		drawFlag = true;
 
 	}
+
 	if (!tag.GetAlive())
 	{
-		impactFlag = false;
 		fireFlag = false;
 		drawFlag = false;
 		tag.SetIsHit();
-	}
-	if (!fireFlag)
-	{
-		int x = aim.GetMouseX();
-		int y = aim.GetMouseY();
-		//ターゲットを原点として弾痕の座標を計算
-		prevX = tag.GetX() - x;
-		prevY = tag.GetY() - y;
-		impactTime = gameTime;
-	}
-	else if (fireFlag)
-	{
-		
-		this->x = tag.GetX() - prevX;
-		this->y = tag.GetY() - prevY;
-		if (!drawFlag && gameTime > impactTime )
-		{
-			drawFlag = true;
-			impactFlag = true;
-		}
 	}
 }
 
@@ -64,16 +74,15 @@ void Bullet::Draw()
 void Bullet::DrawBulletMark(float& mouseX, float& mouseY, int& objX, int& objY, float& exRate, bool& flag)
 {
 	
-	
 	if (drawFlag)
 	{
-		if (flag)//エイム時
+
+		
+		if (flag)
 		{
-			DrawCircle(x, y, 10, green, true);
-			DrawGraph(x, y, Markhandle, false);
 			DrawRotaGraph(x, y, exRate, 0, Markhandle, true);
 		}
-		
+
 	}
 }
 

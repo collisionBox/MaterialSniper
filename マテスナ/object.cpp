@@ -22,16 +22,18 @@ void Target::Init()
 {
 	x = GetRand(1920 - imgSizeX) + imgHalfSizeX;
 	y = GetRand(1080 - imgSizeY) + imgHalfSizeY;
-
+	z = 10;
+	r = 10;
 	alpha = 0;
 	fadeFlag = false;
 	isAlive = false;
+	prevAlive = false;
 	isHit = false;
 }
 
-void Target::Update(float& gameTime, Bullet bul)
+void Target::Update(Bullet& bul, float& gameTime)
 {
-	Behavior(gameTime, bul);
+	Behavior(bul,gameTime);
 }
 
 void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
@@ -62,17 +64,35 @@ void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
 		DrawCircle(x, y, minR+(5*9), green, false);
 
 	}
+	//bullet.DrawBulletMark(mouseX, mouseY, exRate, flag);
 	// 描画ブレンドモードをノーブレンドに戻す。
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);	
 	DrawFormatString(100, 800, green, "%d:%d\n%d:%d\n%d;%d", x,y,zoomX,zoomY,mouseX,mouseY);
 	//DrawBox(imgHalfSizeX, imgHalfSizeY, 1920 - imgHalfSizeX, 1080 - imgHalfSizeY, red, true);
 	int X = abs(mouseX - this->x);
+	for (int i = maxR; i >= 0; i -= 5)
+	{
+
+
+		if (i < X)
+		{
+			//DrawCircle(x, y, i, green, false);
+		}
+	}
+	DrawFormatString(100, 500, green, "%f", deadTime);
+
 }
 
-void Target::Behavior(float& gameTime, Bullet bul)
+void Target::Behavior(Bullet& bul, float& gameTime)
 {
-	if (!isAlive)
+	/*if (CheckHitKey(KEY_INPUT_SPACE))
 	{
+		fadeFlag = true;
+
+	}*/
+	if (!isAlive && !prevAlive)
+	{
+
 		fadeFlag = true;
 	}
 
@@ -82,34 +102,37 @@ void Target::Behavior(float& gameTime, Bullet bul)
 		alpha += deltaAlphaNum;
 		if (alpha >= 255)
 		{
+			alpha = 255;
 			isAlive = true;
 			fadeFlag = false;
+			prevAlive = isAlive;
 		}
 	}
-	
 
-	if (bul.GetImpactFlag() != 0)
+
+	if (prevAlive && !isAlive)
 	{
-		if (gameTime - bul.GetImpactTime() > waitTime)
+		if (bul.GetImpactFlag())
 		{
-			alpha -= deltaAlphaNum;
+			if (gameTime - deadTime > waitTime)
+			{
+				alpha -= deltaAlphaNum;
+			}
 		}
-		
-		
+
+
+
 		if (alpha < 0)
 		{
-			isAlive = false;
+			prevAlive = isAlive;
 			x = GetRand(1920 - imgSizeX) + imgHalfSizeX;
 			y = GetRand(1080 - imgSizeY) + imgHalfSizeY;
 
 		}
-		
-		
-	}
-	
-}
 
-void Target::HitTest(int& mouseX, int& mouseY, bool& flag, float& gameTime)
+	}
+}
+void Target::HitTest(int& mouseX, int& mouseY, bool flag, float& gameTime)
 {
 	if (flag)//ズーム状態
 	{
@@ -125,7 +148,7 @@ void Target::HitTest(int& mouseX, int& mouseY, bool& flag, float& gameTime)
 		rx = x + imgHalfSizeX;
 		ry = y + imgHalfSizeY;
 	}
-	
+
 	if (isAlive)
 	{
 		if (lx <= mouseX && ly <= mouseY &&
@@ -138,11 +161,13 @@ void Target::HitTest(int& mouseX, int& mouseY, bool& flag, float& gameTime)
 			{
 
 			}
-				
-			
+
+
 			//if ()
 			{
+				deadTime = gameTime;
 				isHit = true;
+				isAlive = false;
 			}
 		}
 	}
