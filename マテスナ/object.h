@@ -15,18 +15,18 @@ public:
 	void Update(Bullet& bul, float& gameTime);
 	void Draw(float mouseX, float mouseY, float& exRate, bool& flag, Bullet& bullet);
 	void Behavior(Bullet& bul, float& gameTime);
-	void HitTest(int& mouseX, int& mouseY, bool flag, float& gameTime);
+	void HitTest(float& mouseX, float& mouseY, bool flag, float& gameTime);
 
 	int GetAlpha() const { return alpha; }
 	bool GetIsHit() const { return isHit; }
 	void SetIsHit() { isHit = false; }
 	int GetType() const { return type; }
-	int GetSpeed() const { return speed; }
+	float GetSpeed() const { return speed; }
 	bool GetAlive() const { return prevAlive; }
 	void SetIsAlive() { isAlive = false; }
-	int GetX() const { return zoomX; }
-	int GetY() const { return zoomY; }
-	int GetZ()const { return z; }
+	float GetX() const { return zoomX; }
+	float GetY() const { return zoomY; }
+	float GetZ()const { return z; }
 	
 
 private:
@@ -43,12 +43,12 @@ private:
 	const int deltaAlphaNum = 30;
 	float deadTime;
 	const float waitTime = 1.5f;
-	int x, y, z;
+	float x, y, z;
 	int type;
-	int zoomX, zoomY;
-	int rx, ry, lx, ly;
-	int speed;
-	int vx, vy;
+	float zoomX, zoomY;
+	float rx, ry, lx, ly;
+	float speed;
+	float vx, vy;
 	const float onNozoomExRate = 0.4f;
 	bool isHit;
 	int imgSizeX;

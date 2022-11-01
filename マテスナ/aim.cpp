@@ -4,8 +4,9 @@
 Aim::Aim()
 {
 	// 画像を読み込む
-	handle = LoadGraph("img/test.png");
-	bgHandle = handle;
+	//handle = LoadGraph("img/test.png");
+	handle = LoadGraph("movie/bg.mp4");
+	PlayMovieToGraph(handle);
 	scorpHandle = LoadGraph("img/crosshair.png");
 	lectilHandle = LoadGraph("img/lectil.png");
 	Init();
@@ -42,13 +43,20 @@ void Aim::Update(Target& tag, Bullet& bullet, float& gameTime, float& deltaTime)
 void Aim::Draw(Target& tag, Bullet& bullet)
 {
 	//デバッグ用に背景を薄くする
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
-	DrawRotaGraph2(x, y, x, y, ExRate, 0, handle, false);//背景(マウスを中心に拡大)
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
+	//DrawRotaGraph2F(x, y, x, y, ExRate, 0, handle, false);//背景(マウスを中心に拡大)
+	DrawExtendGraph(0, 0, 1920, 1080, handle, false);
+	if (GetMovieStateToGraph(handle) == 0)
+	{
+		SeekMovieToGraph(handle, 0);
+		PlayMovieToGraph(handle);
+	}
+	
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 0);
 
-	tag.Draw(x, y, ExRate, isRightClick,bullet);//的
+	tag.Draw(x, y, ExRate, isRightClick, bullet);//的
 	
-	DrawRotaGraph(x, y, 1, 0, aimming, true);//クロスヘア
+	DrawRotaGraphF(x, y, 1, 0, aimming, true);//クロスヘア
 
 	DrawFormatString(50, 50, green, "%f:%f", x,y);
 	DrawCircle(x, y, 5, red, true);
@@ -75,15 +83,15 @@ void Aim::MouseBehavior(Target& tag, float& gameTime, float& deltaTime)
 	{
 		mouseY = windowY;
 	}
-	x = mouseX;
-	y = mouseY;
+	x = (float)(mouseX);
+	y = (float)(mouseY);
 	//右クリック（エイム）処理
 	if ((GetMouseInput() & MOUSE_INPUT_RIGHT) != 0)//押されているとき
 	{
 		//LShift（息止め）処理
 		if (CheckHitKey(KEY_INPUT_LSHIFT) != 0)//押されているとき
 		{
-			omega = 0.008;
+			omega = 0.008f;
 		}
 		else if (CheckHitKey(KEY_INPUT_LSHIFT) == 0)//押されていないとき
 		{

@@ -26,8 +26,8 @@ void Bullet::Update(Aim& aim, Target& tag, float& gameTime, float& deltaTime)
 	{
 		if (!fireFlag)
 		{
-			int x = aim.GetMouseX();
-			int y = aim.GetMouseY();
+			float x = aim.GetMouseX();
+			float y = aim.GetMouseY();
 			//ターゲットを原点として弾痕の座標を計算
 			prevX = tag.GetX() - x;
 			prevY = tag.GetY() - y;
@@ -71,7 +71,7 @@ void Bullet::Draw()
 {
 }
 
-void Bullet::DrawBulletMark(float& mouseX, float& mouseY, int& objX, int& objY, float& exRate, bool& flag)
+void Bullet::DrawBulletMark(float& mouseX, float& mouseY, float& objX, float& objY, float& exRate, bool& flag)
 {
 	
 	if (drawFlag)
@@ -80,7 +80,7 @@ void Bullet::DrawBulletMark(float& mouseX, float& mouseY, int& objX, int& objY, 
 		
 		if (flag)
 		{
-			DrawRotaGraph(x, y, exRate, 0, Markhandle, true);
+			DrawRotaGraphF(x, y, exRate, 0, Markhandle, true);
 		}
 
 	}

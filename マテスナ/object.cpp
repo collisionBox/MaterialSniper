@@ -20,8 +20,8 @@ Target::~Target()
 
 void Target::Init()
 {
-	x = GetRand(1920 - imgSizeX) + imgHalfSizeX;
-	y = GetRand(1080 - imgSizeY) + imgHalfSizeY;
+	x = (float)(GetRand(1920 - imgSizeX) + imgHalfSizeX);
+	y = (float)(GetRand(1080 - imgSizeY) + imgHalfSizeY);
 	z = 10;
 	r = 10;
 	alpha = 0;
@@ -39,8 +39,8 @@ void Target::Update(Bullet& bul, float& gameTime)
 void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
 	Bullet& bullet)
 {
-	int prevX = (int)(mouseX - x);
-	int prevY = (int)(mouseY - y);
+	float prevX = mouseX - x;
+	float prevY = mouseY - y;
 	zoomX = x - prevX;
 	zoomY = y - prevY;
 	
@@ -49,7 +49,7 @@ void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
 	//描画
 	if (flag)//エイム時
 	{
-		DrawRotaGraph(zoomX, zoomY, exRate, 0, handle, false);
+		DrawRotaGraphF(zoomX, zoomY, exRate, 0, handle, false);
 		bullet.DrawBulletMark(mouseX, mouseY, zoomX, zoomY, exRate, flag);
 
 		DrawCircle(zoomX, zoomY, (minR + (0 * 9 ))*3, green, false);
@@ -58,7 +58,7 @@ void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
 	else//非エイム時
 	{
  		
-		DrawRotaGraph(x, y, onNozoomExRate, 0, filterHandle, false);
+		DrawRotaGraphF(x, y, onNozoomExRate, 0, filterHandle, false);
 		bullet.DrawBulletMark(mouseX,mouseY, x, y, exRate, flag);
 
 		DrawCircle(x, y, minR+(5*9), green, false);
@@ -69,7 +69,7 @@ void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);	
 	DrawFormatString(100, 800, green, "%d:%d\n%d:%d\n%d;%d", x,y,zoomX,zoomY,mouseX,mouseY);
 	//DrawBox(imgHalfSizeX, imgHalfSizeY, 1920 - imgHalfSizeX, 1080 - imgHalfSizeY, red, true);
-	int X = abs(mouseX - this->x);
+	float X = abs(mouseX - this->x);
 	for (int i = maxR; i >= 0; i -= 5)
 	{
 
@@ -125,14 +125,14 @@ void Target::Behavior(Bullet& bul, float& gameTime)
 		if (alpha < 0)
 		{
 			prevAlive = isAlive;
-			x = GetRand(1920 - imgSizeX) + imgHalfSizeX;
-			y = GetRand(1080 - imgSizeY) + imgHalfSizeY;
+			x = (float)(GetRand(1920 - imgSizeX) + imgHalfSizeX);
+			y = (float)(GetRand(1080 - imgSizeY) + imgHalfSizeY);
 
 		}
 
 	}
 }
-void Target::HitTest(int& mouseX, int& mouseY, bool flag, float& gameTime)
+void Target::HitTest(float& mouseX, float& mouseY, bool flag, float& gameTime)
 {
 	if (flag)//ズーム状態
 	{

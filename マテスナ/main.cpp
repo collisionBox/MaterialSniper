@@ -6,7 +6,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	ChangeWindowMode(TRUE);
 
 	// 画面モードのセット
-	SetBackgroundColor(100, 100, 100);
+	//SetBackgroundColor(100, 100, 100);
 	SetGraphMode(windowX, windowY, 32);
 
 	// ＤＸライブラリ初期化処理
@@ -19,7 +19,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	float nowTime = 0;
 	float prevTime = nowTime;
 	float deltaTime;
-	float startTime = GetNowCount();
+	float startTime = (float)(GetNowCount());
 	float gameTime;
 	Aim aim;
 	Target target;
@@ -34,7 +34,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	{
 		
 		//FPS計算
-		nowTime = GetNowCount();
+		nowTime = (float)(GetNowCount());
 		deltaTime = (nowTime - prevTime) / 1000.0f;
 		gameTime = (nowTime - startTime) / 1000.0f;
 
