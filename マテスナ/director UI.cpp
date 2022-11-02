@@ -34,6 +34,13 @@ void Director::Draw(Target& tag, Bullet& bullet, Aim& aim, float& gameTime)
 	DrawFormatStringToHandle(x, y, white, bulletHandle, "%d / %d", aim.GetMagazin(), aim.GetCarriedNum());
 }
 
+void Director::O2Gauge(float& gameTime)
+{
+	
+
+	
+}
+
 void Director::ReloadBlanking(Aim& aim)
 {
 	if (aim.GetMagazin() <= 2)

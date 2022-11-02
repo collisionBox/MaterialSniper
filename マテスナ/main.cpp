@@ -37,7 +37,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		nowTime = (float)(GetNowCount());
 		deltaTime = (nowTime - prevTime) / 1000.0f;
 		gameTime = (nowTime - startTime) / 1000.0f;
-
+		
 		//âÊñ èâä˙âª
 		ClearDrawScreen();
 		game.game(gameTime, deltaTime);

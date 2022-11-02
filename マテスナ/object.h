@@ -14,7 +14,6 @@ public:
 	void Init();
 	void Update(Bullet& bul, float& gameTime);
 	void Draw(float mouseX, float mouseY, float& exRate, bool& flag, Bullet& bullet);
-	void Behavior(Bullet& bul, float& gameTime);
 	void HitTest(float& mouseX, float& mouseY, bool flag, float& gameTime);
 
 	int GetAlpha() const { return alpha; }
@@ -30,6 +29,7 @@ public:
 	
 
 private:
+	void Behavior(Bullet& bul, float& gameTime);
 
 	int handle;
 	int filterHandle;

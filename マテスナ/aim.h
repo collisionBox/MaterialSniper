@@ -8,9 +8,6 @@ public:
 	~Aim();
 	void Init();
 	void Update(Target& tag, Bullet& bullet, float& gameTime, float& deltaTime);
-	void Draw(Target& tag, Bullet& bullet);
-	void MouseBehavior(Target& tag, float& gameTime, float& deltaTime);
-	void MagazinDirector(float& gameTime);
 	//ターゲットに使用
 	float GetExRate() const { return ExRate; }
 	float GetMouseX()const { return x; }
@@ -22,6 +19,12 @@ public:
 	int GetMagazin() const { return magazin; }
 	int GetCarriedNum() const { return carriedNum; }
 private:
+	void Draw(Target& tag, Bullet& bullet);
+	void MouseBehavior(Target& tag, float& gameTime, float& deltaTime);
+	void MagazinDirector(float& gameTime);
+	void FireFlagBehavior();
+	void O2gauge(float& gameTIme, float& delatTime);
+
 	int handle;
 	int scorpHandle;
 	int lectilHandle;
@@ -38,7 +41,14 @@ private:
 	float bleathStop = 10.0f;
 	float omega;
 	float v;
-	const float nomalCameraShake = 15.0f;
+	const float nomalCameraShake = 1.012f;//通常時のブレ
+	const float stopBreathCameraShake = 0.008f;//息止め時のブレ
+	const float onPantingCameraShake = 0.02f;//息切れ時のブレ
+	float stopBreathTime = 5.0f;//息を止めていられる時間
+	const float recoverO2 = 20.0f;//酸素回復量(1秒で20消費)
+	float breath;
+	bool LShiftFlag;
+	bool pantingFlag;//息切れフラグ
 	bool fireFlag;
 	bool reloadFlag;
 	int mouseX, mouseY;

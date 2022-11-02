@@ -29,6 +29,9 @@ void Aim::Init()//初期化
 	x = windowX / 2;
 	y = windowY / 2;
 	aimming = lectilHandle;
+	omega = nomalCameraShake;
+	breath = 100;
+	LShiftFlag = false;
 }
 
 void Aim::Update(Target& tag, Bullet& bullet, float& gameTime, float& deltaTime)
@@ -55,6 +58,7 @@ void Aim::Draw(Target& tag, Bullet& bullet)
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 0);
 
 	tag.Draw(x, y, ExRate, isRightClick, bullet);//的
+
 	
 	DrawRotaGraphF(x, y, 1, 0, aimming, true);//クロスヘア
 
@@ -65,6 +69,8 @@ void Aim::Draw(Target& tag, Bullet& bullet)
 
 void Aim::MouseBehavior(Target& tag, float& gameTime, float& deltaTime)
 {
+	float xBehavior = (15 * cos(v)) / magnificationRate;
+	float yBehavior = (15 * sin(v * 2)) / magnificationRate;
 	GetMousePoint(&mouseX, &mouseY);
 	//画面外にでないようにする
 	if (mouseX <= 0)
@@ -88,18 +94,9 @@ void Aim::MouseBehavior(Target& tag, float& gameTime, float& deltaTime)
 	//右クリック（エイム）処理
 	if ((GetMouseInput() & MOUSE_INPUT_RIGHT) != 0)//押されているとき
 	{
-		//LShift（息止め）処理
-		if (CheckHitKey(KEY_INPUT_LSHIFT) != 0)//押されているとき
-		{
-			omega = 0.008f;
-		}
-		else if (CheckHitKey(KEY_INPUT_LSHIFT) == 0)//押されていないとき
-		{
-			omega = 0.012f;
-		}	
-		v += omega;
-		x += 15 * cos(v);
-		y += 15 * sin(v * 2);
+		
+		xBehavior = 15 * cos(v);
+		yBehavior = 15 * sin(v * 2);
 		ExRate = magnificationRate;
 		aimming = scorpHandle;
 		isRightClick = true;
@@ -110,22 +107,15 @@ void Aim::MouseBehavior(Target& tag, float& gameTime, float& deltaTime)
 		ExRate = 1.0f;
 		aimming = lectilHandle;
 		isRightClick = false;
-	}
-	if (fireFlag)//弾を撃ったら
-	{
-		if (GetMouseInput() & MOUSE_INPUT_LEFT || CheckHitKey(KEY_INPUT_Z))
-		{
-			magazin -= 1;
-			fireFlag = false;
-			isLeftClick = true;
-		}
-	}
-	if (!fireFlag && !(GetMouseInput() & MOUSE_INPUT_LEFT || CheckHitKey(KEY_INPUT_Z)))
-	{
-		fireFlag = true;
-		isLeftClick = false;
+		xBehavior = (15 * cos(v))/ magnificationRate;
+		yBehavior = (15 * sin(v * 2))/ magnificationRate;
 	}
 	
+	FireFlagBehavior();
+	O2gauge(gameTime, deltaTime);
+	v += omega;
+	x += xBehavior;
+	y += yBehavior;
 	MagazinDirector(gameTime);
 }
 
@@ -163,4 +153,71 @@ void Aim::MagazinDirector(float& gameTime)
 	{
 		fireFlag = false;
 	}
+}
+
+void Aim::FireFlagBehavior()
+{
+	if (fireFlag)//弾を撃ったら
+	{
+		if (GetMouseInput() & MOUSE_INPUT_LEFT || CheckHitKey(KEY_INPUT_Z))
+		{
+			magazin -= 1;
+			fireFlag = false;
+			isLeftClick = true;
+		}
+	}
+	if (!fireFlag && !(GetMouseInput() & MOUSE_INPUT_LEFT || CheckHitKey(KEY_INPUT_Z)))
+	{
+		fireFlag = true;
+		isLeftClick = false;
+	}
+}
+
+void Aim::O2gauge(float& gameTIme, float& delatTime)
+{
+	float time;
+	float consumedO2 = 100 / stopBreathTime;//息を止めていられる時間から消費量を計算
+	//LShift（息止め）処理
+	if (CheckHitKey(KEY_INPUT_LSHIFT) != 0)//押されているとき
+	{
+		LShiftFlag = true;
+	}
+	else if (CheckHitKey(KEY_INPUT_LSHIFT) == 0)//押されていないとき
+	{
+		LShiftFlag = false;
+	}
+	if (LShiftFlag)
+	{
+		if (breath > 0)
+		{
+			breath -= consumedO2 * delatTime;
+			omega = stopBreathCameraShake;
+		}
+		else if (breath <= 0)
+		{
+			pantingFlag = true;
+			time = gameTIme + 1.5;
+		}
+	}
+	if (!LShiftFlag && !pantingFlag)
+	{
+		omega = nomalCameraShake;
+		if (breath < 100)
+		{
+			breath += recoverO2 * delatTime;
+		}
+		else if (breath > 100)
+		{
+			breath = 100;
+		}
+	}
+	if (pantingFlag)
+	{
+		omega = onPantingCameraShake;
+		if (time <= //gameTIme)
+		{
+			pantingFlag = false;
+		}
+	}
+	DrawFormatString(500, 500, green, "%f", breath);
 }
