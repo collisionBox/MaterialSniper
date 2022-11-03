@@ -32,6 +32,7 @@ void Aim::Init()//‰Šú‰»
 	omega = nomalCameraShake;
 	breath = 100;
 	LShiftFlag = false;
+	variableTime = 0;
 }
 
 void Aim::Update(Target& tag, Bullet& bullet, float& gameTime, float& deltaTime)
@@ -175,17 +176,20 @@ void Aim::FireFlagBehavior()
 
 void Aim::O2gauge(float& gameTIme, float& delatTime)
 {
-	float time;
 	float consumedO2 = 100 / stopBreathTime;//‘§‚ðŽ~‚ß‚Ä‚¢‚ç‚ê‚éŽžŠÔ‚©‚çÁ”ï—Ê‚ðŒvŽZ
-	//LShifti‘§Ž~‚ßjˆ—
-	if (CheckHitKey(KEY_INPUT_LSHIFT) != 0)//‰Ÿ‚³‚ê‚Ä‚¢‚é‚Æ‚«
+	if (!pantingFlag)
 	{
-		LShiftFlag = true;
+		//LShifti‘§Ž~‚ßjˆ—
+		if (CheckHitKey(KEY_INPUT_LSHIFT) != 0)//‰Ÿ‚³‚ê‚Ä‚¢‚é‚Æ‚«
+		{
+			LShiftFlag = true;
+		}
+		else if (CheckHitKey(KEY_INPUT_LSHIFT) == 0)//‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢‚Æ‚«
+		{
+			LShiftFlag = false;
+		}
 	}
-	else if (CheckHitKey(KEY_INPUT_LSHIFT) == 0)//‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢‚Æ‚«
-	{
-		LShiftFlag = false;
-	}
+	
 	if (LShiftFlag)
 	{
 		if (breath > 0)
@@ -196,7 +200,8 @@ void Aim::O2gauge(float& gameTIme, float& delatTime)
 		else if (breath <= 0)
 		{
 			pantingFlag = true;
-			time = gameTIme + 1.5;
+			LShiftFlag = false;
+			variableTime = gameTIme + 1.5;
 		}
 	}
 	if (!LShiftFlag && !pantingFlag)
@@ -214,9 +219,14 @@ void Aim::O2gauge(float& gameTIme, float& delatTime)
 	if (pantingFlag)
 	{
 		omega = onPantingCameraShake;
-		if (time <= //gameTIme)
+		if (variableTime <= gameTIme)
 		{
-			pantingFlag = false;
+			breath += recoverO2 * delatTime;
+			if (breath > 100)
+			{
+				breath = 100;
+				pantingFlag = false;
+			}
 		}
 	}
 	DrawFormatString(500, 500, green, "%f", breath);

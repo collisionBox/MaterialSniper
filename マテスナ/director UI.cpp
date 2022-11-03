@@ -30,14 +30,18 @@ void Director::Draw(Target& tag, Bullet& bullet, Aim& aim, float& gameTime)
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 	DrawFormatStringToHandle(x, y - 30, white, reloadStringHandle, "Reload");
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
-
+	O2Gauge(aim);
 	DrawFormatStringToHandle(x, y, white, bulletHandle, "%d / %d", aim.GetMagazin(), aim.GetCarriedNum());
 }
 
-void Director::O2Gauge(float& gameTime)
+void Director::O2Gauge(Aim& aim)
 {
-	
-
+	int min = 710;
+	int max = 1210;
+	int valiable = min + (max * (aim.GetBreath() / 100));
+	DrawBox(960 - 251, 950, 960 + 251, 1000, white, false);
+	DrawBox(min, 949, 960 + 250, 999, green, true);
+	//値がリアルタイムに使われてない！
 	
 }
 

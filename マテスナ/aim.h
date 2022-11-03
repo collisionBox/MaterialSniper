@@ -18,6 +18,7 @@ public:
 	//ŠÄ“Â‚Ég—p
 	int GetMagazin() const { return magazin; }
 	int GetCarriedNum() const { return carriedNum; }
+	float GetBreath() const { return breath; }
 private:
 	void Draw(Target& tag, Bullet& bullet);
 	void MouseBehavior(Target& tag, float& gameTime, float& deltaTime);
@@ -41,10 +42,10 @@ private:
 	float bleathStop = 10.0f;
 	float omega;
 	float v;
-	const float nomalCameraShake = 1.012f;//’Êí‚ÌƒuƒŒ
+	const float nomalCameraShake = 0.012f;//’Êí‚ÌƒuƒŒ
 	const float stopBreathCameraShake = 0.008f;//‘§~‚ß‚ÌƒuƒŒ
-	const float onPantingCameraShake = 0.02f;//‘§Ø‚ê‚ÌƒuƒŒ
-	float stopBreathTime = 5.0f;//‘§‚ğ~‚ß‚Ä‚¢‚ç‚ê‚éŠÔ
+	const float onPantingCameraShake = 0.04f;//‘§Ø‚ê‚ÌƒuƒŒ
+	float stopBreathTime = 1.0f;//‘§‚ğ~‚ß‚Ä‚¢‚ç‚ê‚éŠÔ
 	const float recoverO2 = 20.0f;//_‘f‰ñ•œ—Ê(1•b‚Å20Á”ï)
 	float breath;
 	bool LShiftFlag;
@@ -59,5 +60,6 @@ private:
 	float prevMousePosX;
 	float prevMousePosY;
 	const float  magnificationRate = 3.0f;//ƒY[ƒ€”{—¦
+	float variableTime;//Œ±‰^—p@ŠÔ‚ğ‚¢‚ë‚¢‚ë‚È‚Æ‚±‚ë‚Å‘ã“ü‚Å‚«‚é•Ï”
 };
 
