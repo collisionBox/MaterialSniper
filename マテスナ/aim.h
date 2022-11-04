@@ -1,13 +1,16 @@
 #pragma once
 class Target;
 class Bullet;
+class Director;
 class Aim
 {
 public:
+	static Aim& GetInstance() { static Aim aim; return aim; }
+
 	Aim();
 	~Aim();
 	void Init();
-	void Update(Target& tag, Bullet& bullet, float& gameTime, float& deltaTime);
+	void Update(Director director, Target& tag, Bullet& bullet, float& gameTime, float& deltaTime);
 	//ƒ^[ƒQƒbƒg‚Ég—p
 	float GetExRate() const { return ExRate; }
 	float GetMouseX()const { return x; }
@@ -18,14 +21,13 @@ public:
 	//ŠÄ“Â‚Ég—p
 	int GetMagazin() const { return magazin; }
 	int GetCarriedNum() const { return carriedNum; }
-	float GetBreath() const { return breath; }
+	float GetBreath() { return breath; }
 private:
 	void Draw(Target& tag, Bullet& bullet);
-	void MouseBehavior(Target& tag, float& gameTime, float& deltaTime);
+	void MouseBehavior(Director director, Target& tag, float& gameTime, float& deltaTime);
 	void MagazinDirector(float& gameTime);
 	void FireFlagBehavior();
-	void O2gauge(float& gameTIme, float& delatTime);
-
+	void O2gauge(Director director, float& gameTIme, float& delatTime);
 	int handle;
 	int scorpHandle;
 	int lectilHandle;
@@ -45,7 +47,7 @@ private:
 	const float nomalCameraShake = 0.012f;//’Êí‚ÌƒuƒŒ
 	const float stopBreathCameraShake = 0.008f;//‘§~‚ß‚ÌƒuƒŒ
 	const float onPantingCameraShake = 0.04f;//‘§Ø‚ê‚ÌƒuƒŒ
-	float stopBreathTime = 1.0f;//‘§‚ğ~‚ß‚Ä‚¢‚ç‚ê‚éŠÔ
+	float stopBreathTime = 3.0f;//‘§‚ğ~‚ß‚Ä‚¢‚ç‚ê‚éŠÔ
 	const float recoverO2 = 20.0f;//_‘f‰ñ•œ—Ê(1•b‚Å20Á”ï)
 	float breath;
 	bool LShiftFlag;

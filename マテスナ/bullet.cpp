@@ -64,6 +64,7 @@ void Bullet::Update(Aim& aim, Target& tag, float& gameTime, float& deltaTime)
 		fireFlag = false;
 		drawFlag = false;
 		tag.SetIsHit();
+		//Target::tagInstance().SetIsHit();
 	}
 }
 

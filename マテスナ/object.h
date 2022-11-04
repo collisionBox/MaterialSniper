@@ -9,6 +9,7 @@ class Bullet;
 class Target
 {
 public:
+	static Target& tagInstance() { static Target tag; return tag; }
 	Target();
 	~Target();
 	void Init();

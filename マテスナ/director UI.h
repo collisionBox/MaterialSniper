@@ -13,6 +13,7 @@ enum Sean
 class Director
 {
 public:
+	static Director& directorInstance() { static Director director; return director; }
 	Director();
 	~Director();
 	void Init();
@@ -29,5 +30,9 @@ private:
 	int blankingSpeed = 6;
 	const int x = 1700, y = 950;
 	int prevTime;
-	int red, gerrn, blue;
+	int red, green, blue;
+	float min = 710.0f;
+	float max = 1210.0f;
+	float valiable;
+	float gauge;
 };

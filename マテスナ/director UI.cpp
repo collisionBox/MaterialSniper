@@ -15,39 +15,37 @@ Director::~Director()
 void Director::Init()
 {
 	alpha = 0;
+	gauge = 0;
+	red = 0;
 }
 
 void Director::Update(Target& tag, Bullet& bullet, Aim& aim, float& gameTime)
 {
 	ReloadBlanking(aim);
+	O2Gauge(aim);
+
 	Draw(tag, bullet, aim, gameTime);
 }
 
 void Director::Draw(Target& tag, Bullet& bullet, Aim& aim, float& gameTime)
 {
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 113);
-	DrawBox(x - 5, y - 40, x + 125, y + 55, GetColor(30, 30, 30), true);
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
-	DrawFormatStringToHandle(x, y - 30, white, reloadStringHandle, "Reload");
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
-	O2Gauge(aim);
-	DrawFormatStringToHandle(x, y, white, bulletHandle, "%d / %d", aim.GetMagazin(), aim.GetCarriedNum());
 }
 
 void Director::O2Gauge(Aim& aim)
 {
-	int min = 710;
-	int max = 1210;
-	int valiable = min + (max * (aim.GetBreath() / 100));
+	gauge = aim.GetBreath();
+	valiable = min + (max - min) * (gauge / 100);
+	this->green = 255 * (gauge / 100);
+	this->red = 255 - this->gauge;
+
 	DrawBox(960 - 251, 950, 960 + 251, 1000, white, false);
-	DrawBox(min, 949, 960 + 250, 999, green, true);
-	//値がリアルタイムに使われてない！
-	
+	DrawBoxAA(min, 949, valiable, 999, GetColor(red, green, 0), true);
+	DrawFormatString(700, 700, green, "%f\n%d",gauge, valiable);
 }
 
 void Director::ReloadBlanking(Aim& aim)
 {
-	if (aim.GetMagazin() <= 2)
+	if (aim.GetMagazin() <= 2 && aim.GetMagazin() > 0)
 	{
 		alpha += blankingSpeed;
 		if (alpha >= 255)
@@ -59,10 +57,21 @@ void Director::ReloadBlanking(Aim& aim)
 			blankingSpeed *= -1;
 		}
 	}
+	else if (aim.GetMagazin() <= 0)
+	{
+		alpha = 255;
+	}
 	else
 	{
 		alpha = 0;
 	}
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 113);
+	DrawBox(x - 5, y - 40, x + 125, y + 55, GetColor(200, 200, 200), true);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+	DrawFormatStringToHandle(x, y - 30, white, reloadStringHandle, "Reload");
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+	DrawFormatStringToHandle(x, y, white, bulletHandle, "%d / %d", aim.GetMagazin(), aim.GetCarriedNum());
 
 }
 

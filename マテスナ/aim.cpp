@@ -35,11 +35,11 @@ void Aim::Init()//‰Šú‰»
 	variableTime = 0;
 }
 
-void Aim::Update(Target& tag, Bullet& bullet, float& gameTime, float& deltaTime)
+void Aim::Update(Director director, Target& tag, Bullet& bullet, float& gameTime, float& deltaTime)
 {
 
 	
-	MouseBehavior(tag, gameTime, deltaTime);
+	MouseBehavior(director,tag, gameTime, deltaTime);
 	Draw(tag,bullet);
 	
 }
@@ -68,7 +68,7 @@ void Aim::Draw(Target& tag, Bullet& bullet)
 	
 }
 
-void Aim::MouseBehavior(Target& tag, float& gameTime, float& deltaTime)
+void Aim::MouseBehavior(Director director, Target& tag, float& gameTime, float& deltaTime)
 {
 	float xBehavior = (15 * cos(v)) / magnificationRate;
 	float yBehavior = (15 * sin(v * 2)) / magnificationRate;
@@ -113,7 +113,7 @@ void Aim::MouseBehavior(Target& tag, float& gameTime, float& deltaTime)
 	}
 	
 	FireFlagBehavior();
-	O2gauge(gameTime, deltaTime);
+	O2gauge(director,gameTime, deltaTime);
 	v += omega;
 	x += xBehavior;
 	y += yBehavior;
@@ -174,7 +174,7 @@ void Aim::FireFlagBehavior()
 	}
 }
 
-void Aim::O2gauge(float& gameTIme, float& delatTime)
+void Aim::O2gauge(Director director, float& gameTIme, float& delatTime)
 {
 	float consumedO2 = 100 / stopBreathTime;//‘§‚ğ~‚ß‚Ä‚¢‚ç‚ê‚éŠÔ‚©‚çÁ”ï—Ê‚ğŒvZ
 	if (!pantingFlag)
@@ -199,6 +199,7 @@ void Aim::O2gauge(float& gameTIme, float& delatTime)
 		}
 		else if (breath <= 0)
 		{
+			breath = 0;
 			pantingFlag = true;
 			LShiftFlag = false;
 			variableTime = gameTIme + 1.5;
@@ -219,7 +220,7 @@ void Aim::O2gauge(float& gameTIme, float& delatTime)
 	if (pantingFlag)
 	{
 		omega = onPantingCameraShake;
-		if (variableTime <= gameTIme)
+		//if (variableTime <= gameTIme)
 		{
 			breath += recoverO2 * delatTime;
 			if (breath > 100)
