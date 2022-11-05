@@ -1,11 +1,17 @@
 #pragma once
 
-class Sean
+class Scene
 {
 public:
-	Sean() {};
-	virtual ~Sean() {};
-
-	virtual Sean* Update() = 0;
-	virtual void Draw() = 0;
+	~Scene();
+	static Scene& GetInstance()
+	{
+		static Scene instance;
+		return instance;
+	}
+private:
+	void Draw();
+	int Update();
+	class SceneBase* nowScene;
 };
+#define GAMEINSTANCE Scene::GetInstance()

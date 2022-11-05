@@ -10,6 +10,8 @@ Director::Director()
 }
 Director::~Director()
 {
+	DeleteFontToHandle(bulletHandle);
+	DeleteFontToHandle(reloadStringHandle);
 }
 
 void Director::Init()

@@ -1,20 +1,23 @@
 #pragma once
 
 #include "environment.h"
-class Game 
+
+class Game : public SceneBase
 {
 public:
-    void game(float& gameTime, float& deltaTime);
-    void Update(float& gameTime, float& deltaTime);
+    Game();
+    ~Game();
+    void SetScene(SceneBase* scene) { nowSean = scene; }
+    SceneBase* Update(float& gameTime, float& deltaTime);
     void Draw();
     void Init();
 
-    Sean* nowSean;
-    Sean* nextSean;
-
-    Aim aim;
-    Target target;
-    Bullet bullet;
-    Director director;
+    class SceneBase* nowSean;
+private:
+    class Aim aim;
+    class Target target;
+    class Bullet bullet;
+    class Director director;
 };
 
+#define GAMEINSTANCE Game::GetInstance()

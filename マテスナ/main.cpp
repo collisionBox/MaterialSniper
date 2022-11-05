@@ -29,7 +29,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	aim.Init();
 	target.Init();
 	bullet.Init();
-	Game game;
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		
@@ -40,7 +39,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		
 		//âÊñ èâä˙âª
 		ClearDrawScreen();
-		game.game(gameTime, deltaTime);
 		/*aim.Update(target,bullet,gameTime, deltaTime);
 		target.Update(gameTime);
 		bullet.Update(aim, target);
