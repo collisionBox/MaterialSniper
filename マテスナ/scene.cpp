@@ -1,5 +1,5 @@
 #include "environment.h"
-#include "sean.h"
+#include "scene.h"
 
 Scene::~Scene()
 {

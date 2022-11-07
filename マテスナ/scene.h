@@ -1,6 +1,9 @@
 #pragma once
+#include "game.h"
+#include "sceneBase.h"
+//Game.h
 
-class Scene
+class Scene 
 {
 public:
 	~Scene();
@@ -9,6 +12,7 @@ public:
 		static Scene instance;
 		return instance;
 	}
+	void SetScene(SceneBase* scene) { nowScene = scene; }
 private:
 	void Draw();
 	int Update();

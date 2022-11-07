@@ -22,6 +22,7 @@ SceneBase* Game::Update(float& gameTime, float& deltaTime)
 
 void Game::Draw()
 {
+
 }
 
 void Game::Init()

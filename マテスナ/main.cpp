@@ -1,6 +1,5 @@
 #include "DxLib.h"
 #include "environment.h"
-
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	ChangeWindowMode(TRUE);
@@ -29,7 +28,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	aim.Init();
 	target.Init();
 	bullet.Init();
-	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
+	//while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		
 		//FPSŒvŽZ
@@ -45,6 +44,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		director.Update(target, bullet, aim, gameTime);*/
 		// — ‰æ–Ê‚Ì“à—e‚ð•\‰æ–Ê‚É”½‰f
 		DrawFormatString(200, 200, white, "delta:%f\ntime:%f", deltaTime,gameTime);
+		GAMEINSTANCE.SetScene(new Game);
 		
 		ScreenFlip();
 

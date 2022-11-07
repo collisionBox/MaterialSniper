@@ -145,7 +145,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object.cpp" />
-    <ClCompile Include="sean.cpp" />
+    <ClCompile Include="scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aim.h" />
@@ -154,8 +154,8 @@
     <ClInclude Include="environment.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="object.h" />
-    <ClInclude Include="sceanBase.h" />
-    <ClInclude Include="sean.h" />
+    <ClInclude Include="sceneBase.h" />
+    <ClInclude Include="scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
