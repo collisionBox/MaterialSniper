@@ -6,6 +6,6 @@ public:
 	SceneBase() {};
 	virtual ~SceneBase() {};
 
-	virtual SceneBase* Update() = 0;
+	virtual SceneBase* Update(float& gameTime, float& deltaTime) = 0;
 	virtual void Draw() = 0;
 };

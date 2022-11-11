@@ -2,6 +2,7 @@
 #include "game.h"
 #include "sceneBase.h"
 //Game.h
+#if 1
 
 class Scene 
 {
@@ -13,9 +14,10 @@ public:
 		return instance;
 	}
 	void SetScene(SceneBase* scene) { nowScene = scene; }
-private:
+
 	void Draw();
-	int Update();
+	int Update(float& gameTime, float& deltaTime);
 	class SceneBase* nowScene;
 };
 #define GAMEINSTANCE Scene::GetInstance()
+#endif // 0

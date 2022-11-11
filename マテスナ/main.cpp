@@ -20,15 +20,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	float deltaTime;
 	float startTime = (float)(GetNowCount());
 	float gameTime;
-	Aim aim;
-	Target target;
-	Bullet bullet;
-	Director director;
-	//èâä˙âª
-	aim.Init();
-	target.Init();
-	bullet.Init();
-	//while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
+	GAMEINSTANCE.SetScene(new Game);
+
+	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		
 		//FPSåvéZ
@@ -38,14 +32,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		
 		//âÊñ èâä˙âª
 		ClearDrawScreen();
-		/*aim.Update(target,bullet,gameTime, deltaTime);
-		target.Update(gameTime);
-		bullet.Update(aim, target);
-		director.Update(target, bullet, aim, gameTime);*/
 		// ó†âÊñ ÇÃì‡óeÇï\âÊñ Ç…îΩâf
 		DrawFormatString(200, 200, white, "delta:%f\ntime:%f", deltaTime,gameTime);
-		GAMEINSTANCE.SetScene(new Game);
-		
+		GAMEINSTANCE.Update(gameTime, deltaTime);
+		GAMEINSTANCE.Draw();
 		ScreenFlip();
 
 		prevTime = nowTime;

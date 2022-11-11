@@ -18,7 +18,6 @@ public:
 	~Director();
 	void Init();
 	void Update(Target& tag, Bullet& bullet, Aim& aim, float& gameTime);
-	void Draw(Target& tag, Bullet& bullet, Aim& aim, float& gameTime);
 
 	void Sean();
 private:

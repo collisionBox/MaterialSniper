@@ -1,5 +1,6 @@
 #pragma once
 #include "DxLib.h"
+
 const int windowEx = 120;
 const int windowX = 16 * windowEx;
 const int windowY = 9 * windowEx;

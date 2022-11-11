@@ -1,13 +1,29 @@
 #include "game.h"
+#if 0
+void Init()
+{
 
+}
+
+void Update(float& gameTimw, float& deltaTime)
+{
+	aim.Update(director, target, bullet, gameTime, deltaTime);
+	target.Update(bullet, gameTime);
+	bullet.Update(aim, target, gameTime, deltaTime);
+	director.Update(target, bullet, aim, gameTime);
+}
+
+
+
+#else
 Game::Game()
 {
-	
+	Init();
 }
 
 Game::~Game()
 {
-	
+
 }
 
 
@@ -31,3 +47,6 @@ void Game::Init()
 	target.Init();
 	bullet.Init();
 }
+
+#endif // 0
+

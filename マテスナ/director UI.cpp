@@ -26,11 +26,6 @@ void Director::Update(Target& tag, Bullet& bullet, Aim& aim, float& gameTime)
 	ReloadBlanking(aim);
 	O2Gauge(aim);
 
-	Draw(tag, bullet, aim, gameTime);
-}
-
-void Director::Draw(Target& tag, Bullet& bullet, Aim& aim, float& gameTime)
-{
 }
 
 void Director::O2Gauge(Aim& aim)
@@ -68,12 +63,14 @@ void Director::ReloadBlanking(Aim& aim)
 		alpha = 0;
 	}
 
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 113);
-	DrawBox(x - 5, y - 40, x + 125, y + 55, GetColor(200, 200, 200), true);
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, 113);
+	//DrawBox(x - 5, y - 40, x + 125, y + 55, GetColor(200, 200, 200), true);
+	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+	DrawFormatString(x, y, white, "Test");
 	DrawFormatStringToHandle(x, y - 30, white, reloadStringHandle, "Reload");
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
-	DrawFormatStringToHandle(x, y, white, bulletHandle, "%d / %d", aim.GetMagazin(), aim.GetCarriedNum());
+	int a = aim.GetMagazin();
+	DrawFormatStringToHandle(x, y, white, bulletHandle, "%d / %d", a, aim.GetCarriedNum());
 
 }
 

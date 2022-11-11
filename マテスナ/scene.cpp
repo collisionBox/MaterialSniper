@@ -1,5 +1,7 @@
 #include "environment.h"
 #include "scene.h"
+#if 1
+
 
 Scene::~Scene()
 {
@@ -14,7 +16,7 @@ void Scene::Draw()
 	nowScene->Draw();
 }
 
-int Scene::Update()
+int Scene::Update(float& gameTime, float& deltaTime)
 {
 	if (!nowScene)
 	{
@@ -22,7 +24,7 @@ int Scene::Update()
 	}
 
 	SceneBase* tmpScene;
-	tmpScene = nowScene->Update();
+	tmpScene = nowScene->Update(gameTime, deltaTime);
 	if (tmpScene != nowScene)
 	{
 		delete nowScene;
@@ -31,3 +33,4 @@ int Scene::Update()
 	}
 	return false;
 }
+#endif // 0
