@@ -18,11 +18,12 @@ TextBitmap::~TextBitmap()
 	}
 }
 
-void TextBitmap::SetFontImg(int numX, int numY, char* fontImgFlieName)
+void TextBitmap::SetFontImg(int numX, int numY, const char* fontImgFlieName)
 {
 	int tmpImg, imgX, imgY;
 
 	tmpImg = LoadGraph(fontImgFlieName);
+	a = tmpImg;
 	if (tmpImg == -1)
 	{
 		printfDx("fontFile load failed:[%s]", fontImgFlieName);
@@ -37,7 +38,7 @@ void TextBitmap::SetFontImg(int numX, int numY, char* fontImgFlieName)
 
 }
 
-void TextBitmap::TextDraw(int x, int y, char* string)
+void TextBitmap::TextDraw(int x, int y, const char* string)
 {
 	int textX, textY, img;
 	textX = x;
@@ -62,10 +63,10 @@ void TextBitmap::TextDraw(int x, int y, char* string)
 	
 }
 
-void TextBitmap::InitMapText(char* initMapText)
+void TextBitmap::InitMapText(const char* initMapText)
 {
 	int num = 0;
-	char* p;
+	const char* p;
 
 	p = initMapText;
 	char n = 0;
@@ -73,6 +74,11 @@ void TextBitmap::InitMapText(char* initMapText)
 	{
 		fontMap[*p++] = n++;
 	}
+}
+
+void TextBitmap::test()
+{
+	DrawGraph(100, 100, a, false);
 }
 
 int TextBitmap::IsString(char c)

@@ -65,7 +65,7 @@ void Aim::Draw(Target& tag, Bullet& bullet)
 
 	DrawFormatString(50, 50, green, "%f:%f", x,y);
 	DrawCircle(x, y, 5, red, true);
-	
+	text.TextDraw(50, 0, "1234");
 }
 
 void Aim::MouseBehavior(Director director, Target& tag, float& gameTime, float& deltaTime)

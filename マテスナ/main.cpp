@@ -20,7 +20,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	float deltaTime;
 	float startTime = (float)(GetNowCount());
 	float gameTime;
-	GAMEINSTANCE.SetScene(new Game);
+	GAMEINSTANCE.SetScene(new Title);
 
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
@@ -33,7 +33,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		//âÊñ èâä˙âª
 		ClearDrawScreen();
 		// ó†âÊñ ÇÃì‡óeÇï\âÊñ Ç…îΩâf
-		DrawFormatString(200, 200, white, "delta:%f\ntime:%f", deltaTime,gameTime);
+		//DrawFormatString(200, 200, white, "delta:%f\ntime:%f", deltaTime,gameTime);
 		GAMEINSTANCE.Update(gameTime, deltaTime);
 		GAMEINSTANCE.Draw();
 		ScreenFlip();

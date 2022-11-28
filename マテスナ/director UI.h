@@ -1,8 +1,9 @@
 #pragma once
-#include "DxLib.h"
 class Target;
 class Bullet;
 class Aim;
+class TextBitmap;
+
 enum Sean
 {
 	DEMO  ,
@@ -18,9 +19,10 @@ public:
 	~Director();
 	void Init();
 	void Update(Target& tag, Bullet& bullet, Aim& aim, float& gameTime);
+	int BreakNum() { return breakNum++; }
 
-	void Sean();
 private:
+	TextBitmap text;
 	void ReloadBlanking(Aim& aim);
 	void O2Gauge(Aim& aim);
 	int bulletHandle;
@@ -34,4 +36,5 @@ private:
 	float max = 1210.0f;
 	float valiable;
 	float gauge;
+	unsigned int breakNum;//åÇîjêî
 };

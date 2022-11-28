@@ -63,5 +63,6 @@ private:
 	float prevMousePosY;
 	const float  magnificationRate = 3.0f;//ズーム倍率
 	float variableTime;//試験運用　時間をいろいろなところで代入できる変数
+	class TextBitmap text;
 };
 

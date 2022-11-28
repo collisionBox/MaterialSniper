@@ -5,6 +5,7 @@ enum ObjType
 	VIRUS,
 };
 class Bullet;
+class Director;
 
 class Target
 {
@@ -30,8 +31,8 @@ public:
 	
 
 private:
+	Director* director = nullptr;
 	void Behavior(Bullet& bul, float& gameTime);
-
 	int handle;
 	int filterHandle;
 	int alpha;
@@ -58,5 +59,6 @@ private:
 	int imgHalfSizeY;
 	int zoomCalculation;
 	
-	
+	int hitNum;
+	int criticalNum;
 };

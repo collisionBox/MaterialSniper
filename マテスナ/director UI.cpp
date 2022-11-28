@@ -6,6 +6,8 @@ Director::Director()
 {
 	bulletHandle = CreateFontToHandle(NULL, 40, 4);
 	reloadStringHandle = CreateFontToHandle(NULL, 30, 3);
+	text.SetFontImg(8, 5, "img/fontG.png");
+	text.InitMapText("1234567890ABCDEFGHIJKLMOPQRSTUVWXYZ");
 	Init();
 }
 Director::~Director()
@@ -16,9 +18,11 @@ Director::~Director()
 
 void Director::Init()
 {
+
 	alpha = 0;
 	gauge = 0;
 	red = 0;
+	breakNum = 0;
 }
 
 void Director::Update(Target& tag, Bullet& bullet, Aim& aim, float& gameTime)
@@ -63,18 +67,19 @@ void Director::ReloadBlanking(Aim& aim)
 		alpha = 0;
 	}
 
-	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, 113);
-	//DrawBox(x - 5, y - 40, x + 125, y + 55, GetColor(200, 200, 200), true);
-	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
-	DrawFormatString(x, y, white, "Test");
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 113);
+	DrawBox(x - 5, y - 40, x + 125, y + 55, GetColor(200, 200, 200), true);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+	//DrawFormatString(x, y, white, "Test");
+
 	DrawFormatStringToHandle(x, y - 30, white, reloadStringHandle, "Reload");
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 	int a = aim.GetMagazin();
-	DrawFormatStringToHandle(x, y, white, bulletHandle, "%d / %d", a, aim.GetCarriedNum());
-
+	DrawFormatString(x, y, white ,"%d / %d", a, aim.GetCarriedNum());
+	text.test();
+	text.TextDraw(x, y, "TEST");
+	//DrawFormatString(0, 0, white, "%d", breakNum);
 }
 
-void Director::Sean()
-{
-	
-}
+
+

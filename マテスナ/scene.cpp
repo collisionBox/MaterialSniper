@@ -7,14 +7,6 @@ Scene::~Scene()
 {
 }
 
-void Scene::Draw()
-{
-	if (!nowScene)
-	{
-		return;
-	}
-	nowScene->Draw();
-}
 
 int Scene::Update(float& gameTime, float& deltaTime)
 {
@@ -29,8 +21,17 @@ int Scene::Update(float& gameTime, float& deltaTime)
 	{
 		delete nowScene;
 		nowScene = tmpScene;
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 #endif // 0
+
+void Scene::Draw()
+{
+	if (!nowScene)
+	{
+		return;
+	}
+	nowScene->Draw();
+}

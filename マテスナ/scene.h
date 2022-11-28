@@ -15,8 +15,8 @@ public:
 	}
 	void SetScene(SceneBase* scene) { nowScene = scene; }
 
-	void Draw();
 	int Update(float& gameTime, float& deltaTime);
+	void Draw();
 	class SceneBase* nowScene;
 };
 #define GAMEINSTANCE Scene::GetInstance()

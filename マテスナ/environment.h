@@ -11,11 +11,13 @@ const int red = GetColor(255, 0, 0);
 const int black = GetColor(0, 0, 0);
 const int green = GetColor(0, 255, 0);
 
+#include "textBitmap.h"
 #include "sceneBase.h"
 #include "director UI.h"
 #include "aim.h"
 #include "Bullet.h"
 #include "object.h"
+#include "Title.h"
 #include "game.h"
 #include "sceneBase.h"
 #include "scene.h"

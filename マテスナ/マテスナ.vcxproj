@@ -147,6 +147,7 @@
     <ClCompile Include="object.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="textBitmap.cpp" />
+    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aim.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="sceneBase.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="textBitmap.h" />
+    <ClInclude Include="Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

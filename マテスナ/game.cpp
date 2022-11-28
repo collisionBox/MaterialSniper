@@ -43,6 +43,7 @@ void Game::Draw()
 
 void Game::Init()
 {
+	director.Init();
 	aim.Init();
 	target.Init();
 	bullet.Init();
