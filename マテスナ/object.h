@@ -31,14 +31,13 @@ public:
 	
 
 private:
-	Director* director = nullptr;
 	void Behavior(Bullet& bul, float& gameTime);
 	int handle;
 	int filterHandle;
 	int alpha;
 	int r;
-	const int minR = 12;
-	const int maxR = minR + (5 * 9);
+	const float minR = 11;
+	const float maxR = minR + (5 * 9);
 	bool isAlive;
 	bool prevAlive;
 	bool fadeFlag;

@@ -1,5 +1,7 @@
 #pragma once
 #include "DxLib.h"
+#include <math.h>
+#include <random>
 
 const int windowEx = 120;
 const int windowX = 16 * windowEx;
@@ -21,5 +23,4 @@ const int green = GetColor(0, 255, 0);
 #include "game.h"
 #include "sceneBase.h"
 #include "scene.h"
-#include <math.h>
-#include <random>
+static class Director* director = new Director;

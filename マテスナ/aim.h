@@ -1,7 +1,6 @@
 #pragma once
 class Target;
 class Bullet;
-class Director;
 class Aim
 {
 public:
@@ -10,7 +9,7 @@ public:
 	Aim();
 	~Aim();
 	void Init();
-	void Update(Director director, Target& tag, Bullet& bullet, float& gameTime, float& deltaTime);
+	void Update(Target& tag, Bullet& bullet, float& gameTime, float& deltaTime);
 	//ターゲットに使用
 	float GetExRate() const { return ExRate; }
 	float GetMouseX()const { return x; }
@@ -24,10 +23,10 @@ public:
 	float GetBreath() { return breath; }
 private:
 	void Draw(Target& tag, Bullet& bullet);
-	void MouseBehavior(Director director, Target& tag, float& gameTime, float& deltaTime);
+	void MouseBehavior(Target& tag, float& gameTime, float& deltaTime);
 	void MagazinDirector(float& gameTime);
 	void FireFlagBehavior();
-	void O2gauge(Director director, float& gameTIme, float& delatTime);
+	void O2gauge(float& gameTIme, float& delatTime);
 	int handle;
 	int scorpHandle;
 	int lectilHandle;

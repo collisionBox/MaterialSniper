@@ -11,17 +11,11 @@ Target::Target()
 	filterHandle = LoadGraph("img/target.jpg");
 	GraphFilter(filterHandle, DX_GRAPH_FILTER_GAUSS, 16, 80);
 	alpha = 0;
-	director = new Director;
 	Init();
 }
 
 Target::~Target()
 {
-	if (director != nullptr)
-	{
-		delete director;
-		director = nullptr;
-	}
 }
 
 void Target::Init()
@@ -73,14 +67,13 @@ void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
 	DrawRotaGraphF(x, y, exRate, 0, handle, false);
 	for (float i = 0; i < 9.8; i += 0.9)
 	{
-		DrawCircle(x, y, (minR + (i * 5.8)) * exRate, white, false);
+		DrawCircle(x, y, (minR + (i * 5.9)) * exRate, green, false);
 
 	}
 	// 描画ブレンドモードをノーブレンドに戻す。
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);	
 	DrawFormatString(100, 800, green, "%d:%d", hitNum, criticalNum);
 	bullet.DrawBulletMark(mouseX, mouseY, zoomX, zoomY, exRate, flag);
-
 	//DrawBox(imgHalfSizeX, imgHalfSizeY, 1920 - imgHalfSizeX, 1080 - imgHalfSizeY, red, true);
 	DrawFormatString(100, 500, green, "%f", deadTime);
 
@@ -153,6 +146,7 @@ void Target::HitTest(float& mouseX, float& mouseY, bool flag, float& gameTime)
 
 	if (isAlive)
 	{
+		int point = 100;
 		if (lx <= mouseX && ly <= mouseY &&
 			rx >= mouseX && ry >= mouseY)
 		{
@@ -160,6 +154,16 @@ void Target::HitTest(float& mouseX, float& mouseY, bool flag, float& gameTime)
 			float y = abs(mouseY - this->y);
 			float distance = sqrtf(x * x + y * y);
 
+			for (float i = 0; i < 9.8; i += 0.9)
+			{
+				if (distance <= (minR + (i * 5.9)) * 3)
+				{
+					
+					break;
+				}
+				i -= 10;
+			}
+#if 0
 			if (distance <= minR + (0 * 9) * 3)//クリティカル判定
 			{
 				criticalNum++;
@@ -170,6 +174,7 @@ void Target::HitTest(float& mouseX, float& mouseY, bool flag, float& gameTime)
 				hitNum++;
 				
 			}
+#endif
 			deadTime = gameTime;
 			isHit = true;
 			isAlive = false;

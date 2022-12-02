@@ -35,11 +35,11 @@ void Aim::Init()//‰Šú‰»
 	variableTime = 0;
 }
 
-void Aim::Update(Director director, Target& tag, Bullet& bullet, float& gameTime, float& deltaTime)
+void Aim::Update(Target& tag, Bullet& bullet, float& gameTime, float& deltaTime)
 {
 
 	
-	MouseBehavior(director,tag, gameTime, deltaTime);
+	MouseBehavior(tag, gameTime, deltaTime);
 	Draw(tag,bullet);
 	
 }
@@ -68,7 +68,7 @@ void Aim::Draw(Target& tag, Bullet& bullet)
 	text.TextDraw(50, 0, "1234");
 }
 
-void Aim::MouseBehavior(Director director, Target& tag, float& gameTime, float& deltaTime)
+void Aim::MouseBehavior(Target& tag, float& gameTime, float& deltaTime)
 {
 	float xBehavior = (15 * cos(v)) / magnificationRate;
 	float yBehavior = (15 * sin(v * 2)) / magnificationRate;
@@ -113,7 +113,7 @@ void Aim::MouseBehavior(Director director, Target& tag, float& gameTime, float& 
 	}
 	
 	FireFlagBehavior();
-	O2gauge(director,gameTime, deltaTime);
+	O2gauge(gameTime, deltaTime);
 	v += omega;
 	x += xBehavior;
 	y += yBehavior;
@@ -174,7 +174,7 @@ void Aim::FireFlagBehavior()
 	}
 }
 
-void Aim::O2gauge(Director director, float& gameTIme, float& delatTime)
+void Aim::O2gauge(float& gameTIme, float& delatTime)
 {
 	float consumedO2 = 100 / stopBreathTime;//‘§‚ğ~‚ß‚Ä‚¢‚ç‚ê‚éŠÔ‚©‚çÁ”ï—Ê‚ğŒvZ
 	if (!pantingFlag)
