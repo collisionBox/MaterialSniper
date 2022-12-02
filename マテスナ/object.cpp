@@ -52,41 +52,35 @@ void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
 	zoomX = x - prevX;
 	zoomY = y - prevY;
 	
+	float x, y;
 	// 描画ブレンドモードをアルファブレンドにする
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 	//描画
 	if (flag)//エイム時
 	{
-		DrawRotaGraphF(zoomX, zoomY, exRate, 0, handle, false);
+		x = zoomX;
+		y = zoomY;
 		bullet.DrawBulletMark(mouseX, mouseY, zoomX, zoomY, exRate, flag);
-
-		DrawCircle(zoomX, zoomY, (minR + (0 * 9 ))*3, green, false);
 
 	}
 	else//非エイム時
 	{
- 		
-		DrawRotaGraphF(x, y, onNozoomExRate, 0, filterHandle, false);
-		bullet.DrawBulletMark(mouseX,mouseY, x, y, exRate, flag);
-
-		DrawCircle(x, y, minR+(5*9), green, false);
+		x = this->x;
+		y = this->y;
+		
+		DrawCircle(this->x, this->y, minR+(5*9), green, false);
 
 	}
-	//bullet.DrawBulletMark(mouseX, mouseY, exRate, flag);
+	DrawRotaGraphF(x, y, exRate, 0, handle, false);
+	for (float i = 0; i < 9.8; i += 0.9)
+	{
+		DrawCircle(x, y, (minR + (i * 5.8)) * exRate, white, false);
+
+	}
 	// 描画ブレンドモードをノーブレンドに戻す。
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);	
 	DrawFormatString(100, 800, green, "%d:%d", hitNum, criticalNum);
 	//DrawBox(imgHalfSizeX, imgHalfSizeY, 1920 - imgHalfSizeX, 1080 - imgHalfSizeY, red, true);
-	float X = abs(mouseX - this->x);
-	for (int i = maxR; i >= 0; i -= 5)
-	{
-
-
-		if (i < X)
-		{
-			//DrawCircle(x, y, i, green, false);
-		}
-	}
 	DrawFormatString(100, 500, green, "%f", deadTime);
 
 }
@@ -140,6 +134,13 @@ void Target::Behavior(Bullet& bul, float& gameTime)
 
 	}
 }
+void Target::OnAim()
+{
+	float prevX = Aim::GetInstance().GetMouseX() - x;
+	float prevY = Aim::GetInstance().GetMouseY() - y;
+	zoomX = x - prevX;
+	zoomY = y - prevY;
+}
 void Target::HitTest(float& mouseX, float& mouseY, bool flag, float& gameTime)
 {
 	if (flag)//ズーム状態
@@ -170,7 +171,7 @@ void Target::HitTest(float& mouseX, float& mouseY, bool flag, float& gameTime)
 			{
 				criticalNum++;
 			}
-			else if (distance <= minR + (5 * 9) * 3)
+			else if (distance <= (minR + (5 * 9)) * 3)
 			{
 				director->BreakNum();
 				hitNum++;

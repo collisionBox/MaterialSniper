@@ -14,13 +14,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		return -1;	// エラーが起きたら直ちに終了
 	}
 	SetDrawScreen(DX_SCREEN_BACK);
-
+	//時間計測
 	float nowTime = 0;
 	float prevTime = nowTime;
 	float deltaTime;
 	float startTime = (float)(GetNowCount());
 	float gameTime;
-	GAMEINSTANCE.SetScene(new Title);
+	//初期シーン設定
+	GAMEINSTANCE.SetScene(new Game);
 
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
