@@ -60,7 +60,6 @@ void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
 	{
 		x = zoomX;
 		y = zoomY;
-		bullet.DrawBulletMark(mouseX, mouseY, zoomX, zoomY, exRate, flag);
 
 	}
 	else//非エイム時
@@ -80,6 +79,8 @@ void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
 	// 描画ブレンドモードをノーブレンドに戻す。
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);	
 	DrawFormatString(100, 800, green, "%d:%d", hitNum, criticalNum);
+	bullet.DrawBulletMark(mouseX, mouseY, zoomX, zoomY, exRate, flag);
+
 	//DrawBox(imgHalfSizeX, imgHalfSizeY, 1920 - imgHalfSizeX, 1080 - imgHalfSizeY, red, true);
 	DrawFormatString(100, 500, green, "%f", deadTime);
 
@@ -114,13 +115,12 @@ void Target::Behavior(Bullet& bul, float& gameTime)
 
 	if (prevAlive && !isAlive)
 	{
-		if (bul.GetImpactFlag())
-		{
+		
 			if (gameTime - deadTime > waitTime)
 			{
 				alpha -= deltaAlphaNum;
 			}
-		}
+		
 
 
 
@@ -133,13 +133,6 @@ void Target::Behavior(Bullet& bul, float& gameTime)
 		}
 
 	}
-}
-void Target::OnAim()
-{
-	float prevX = Aim::GetInstance().GetMouseX() - x;
-	float prevY = Aim::GetInstance().GetMouseY() - y;
-	zoomX = x - prevX;
-	zoomY = y - prevY;
 }
 void Target::HitTest(float& mouseX, float& mouseY, bool flag, float& gameTime)
 {

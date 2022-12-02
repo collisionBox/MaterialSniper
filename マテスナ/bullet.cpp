@@ -16,7 +16,6 @@ void Bullet::Init()
 {
 	drawFlag = false;
 	fireFlag = false;
-	impactFlag = false;
 }
 
 void Bullet::Update(Aim& aim, Target& tag, float& gameTime, float& deltaTime)
@@ -45,14 +44,15 @@ void Bullet::Update(Aim& aim, Target& tag, float& gameTime, float& deltaTime)
 		{
 			tag.HitTest(x, y, aim.GetIsClick(), gameTime);
 			z = 0;
-			impactFlag = true;
+			fireFlag = false;
 
 		}
 		
 
-		this->x = tag.GetX() - prevX;
-		this->y = tag.GetY() - prevY;
 	}
+
+	this->x = tag.GetX() - prevX;
+	this->y = tag.GetY() - prevY;
 	if (tag.GetIsHit())
 	{
 		drawFlag = true;
@@ -64,7 +64,6 @@ void Bullet::Update(Aim& aim, Target& tag, float& gameTime, float& deltaTime)
 		fireFlag = false;
 		drawFlag = false;
 		tag.SetIsHit();
-		//Target::tagInstance().SetIsHit();
 	}
 }
 

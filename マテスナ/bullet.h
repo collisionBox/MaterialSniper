@@ -11,7 +11,6 @@ public:
 	void Update(Aim& aim, Target& tag, float& gameTime, float& deltaTime);
 	void Draw();
 	void DrawBulletMark(float& mouseX, float&mouseY, float& objX, float& objY, float& exRate, bool& flag);
-	bool GetImpactFlag() const{ return impactFlag; }
 private:
 	int Markhandle;
 	float x, y;
@@ -22,6 +21,5 @@ private:
 	bool fireFlag;
 	bool drawFlag;
 	float prevX, prevY;
-	bool impactFlag;
 };
 

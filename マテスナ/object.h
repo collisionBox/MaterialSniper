@@ -33,7 +33,6 @@ public:
 private:
 	Director* director = nullptr;
 	void Behavior(Bullet& bul, float& gameTime);
-	void OnAim();
 	int handle;
 	int filterHandle;
 	int alpha;
