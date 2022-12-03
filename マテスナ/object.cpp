@@ -160,6 +160,17 @@ void Target::HitTest(float& mouseX, float& mouseY, bool flag, float& gameTime)
 			float y = abs(mouseY - this->y);
 			float distance = sqrtf(x * x + y * y);
 
+			int point = 100;
+			for (float i = 0; i < 9.8; i += 0.9)
+			{
+				if (distance <= (minR + (i * 5.9)) * 3)
+				{
+
+					break;
+				}
+				i -= 10;
+			}
+#if 0
 			if (distance <= minR + (0 * 9) * 3)//クリティカル判定
 			{
 				criticalNum++;
@@ -170,6 +181,7 @@ void Target::HitTest(float& mouseX, float& mouseY, bool flag, float& gameTime)
 				hitNum++;
 				
 			}
+#endif
 			deadTime = gameTime;
 			isHit = true;
 			isAlive = false;
