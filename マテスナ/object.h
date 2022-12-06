@@ -28,7 +28,7 @@ public:
 	float GetX() const { return zoomX; }
 	float GetY() const { return zoomY; }
 	float GetZ()const { return z; }
-	
+	int GetPoint() const { return point; }
 
 private:
 	Director* director = nullptr;
@@ -61,4 +61,5 @@ private:
 	
 	int hitNum;
 	int criticalNum;
+	int point;
 };

@@ -23,7 +23,6 @@ Game::Game()
 
 Game::~Game()
 {
-
 }
 
 
@@ -33,6 +32,14 @@ SceneBase* Game::Update(float& gameTime, float& deltaTime)
 	target.Update(bullet, gameTime);
 	bullet.Update(aim, target, gameTime, deltaTime);
 	director.Update(target, bullet, aim, gameTime);
+
+	if (CheckHitKey(KEY_INPUT_TAB))
+	{
+		WaitTimer(30);
+
+		return new Over;
+	}
+	WaitTimer(30);
 	return this;
 }
 

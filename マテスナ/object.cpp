@@ -67,32 +67,27 @@ void Target::Draw(float mouseX, float mouseY, float& exRate, bool& flag,
 		x = this->x;
 		y = this->y;
 		
-		DrawCircle(this->x, this->y, minR+(5*9), green, false);
+		//DrawCircle(this->x, this->y, minR+(5*9), green, false);
 
 	}
 	DrawRotaGraphF(x, y, exRate, 0, handle, false);
-	for (float i = 0; i < 9.8; i += 0.9)
-	{
-		DrawCircle(x, y, (minR + (i * 5.8)) * exRate, white, false);
 
-	}
 	// 描画ブレンドモードをノーブレンドに戻す。
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);	
-	DrawFormatString(100, 800, green, "%d:%d", hitNum, criticalNum);
 	bullet.DrawBulletMark(mouseX, mouseY, zoomX, zoomY, exRate, flag);
+	/*for (float i = 0; i < 9.8f; i += 0.9f)
+{
+	DrawCircle(x, y, (minR + (i * 5.8)) * exRate, white, false);
 
-	//DrawBox(imgHalfSizeX, imgHalfSizeY, 1920 - imgHalfSizeX, 1080 - imgHalfSizeY, red, true);
-	DrawFormatString(100, 500, green, "%f", deadTime);
+}*/
+	//DrawFormatString(100, 800, green, "%d:%d", hitNum, criticalNum);
+	//DrawFormatString(100, 500, green, "%f", deadTime);
+	//DrawBox(imgSizeX, imgSizeY, (1920 - imgSizeX) + imgHalfSizeX, (1080 - imgSizeY - 100) + imgHalfSizeY, red, false);
 
 }
 
 void Target::Behavior(Bullet& bul, float& gameTime)
 {
-	/*if (CheckHitKey(KEY_INPUT_SPACE))
-	{
-		fadeFlag = true;
-
-	}*/
 	if (!isAlive && !prevAlive)
 	{
 
@@ -127,8 +122,8 @@ void Target::Behavior(Bullet& bul, float& gameTime)
 		if (alpha < 0)
 		{
 			prevAlive = isAlive;
-			x = (float)(GetRand(1920 - imgSizeX) + imgHalfSizeX);
-			y = (float)(GetRand(1080 - imgSizeY) + imgHalfSizeY);
+			x = (float)(GetRand(1920 - imgHalfSizeX));
+			y = (float)(GetRand(1080 - imgHalfSizeY));
 
 		}
 
@@ -160,15 +155,15 @@ void Target::HitTest(float& mouseX, float& mouseY, bool flag, float& gameTime)
 			float y = abs(mouseY - this->y);
 			float distance = sqrtf(x * x + y * y);
 
-			int point = 100;
-			for (float i = 0; i < 9.8; i += 0.9)
+			int prevPoint = 100;
+			for (float i = 0; i < 9.8f; i += 0.9f)
 			{
-				if (distance <= (minR + (i * 5.9)) * 3)
+				if (distance <= (minR + (i * 5.9f)) * 3.0f)
 				{
-
+					point += prevPoint;
 					break;
 				}
-				i -= 10;
+				prevPoint -= 10;
 			}
 #if 0
 			if (distance <= minR + (0 * 9) * 3)//クリティカル判定

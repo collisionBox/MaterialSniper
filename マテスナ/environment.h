@@ -19,6 +19,7 @@ const int green = GetColor(0, 255, 0);
 #include "object.h"
 #include "Title.h"
 #include "game.h"
+#include "over.h"
 #include "sceneBase.h"
 #include "scene.h"
 #include <math.h>

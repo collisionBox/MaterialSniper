@@ -145,6 +145,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object.cpp" />
+    <ClCompile Include="over.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="textBitmap.cpp" />
     <ClCompile Include="Title.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="environment.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="over.h" />
     <ClInclude Include="sceneBase.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="textBitmap.h" />

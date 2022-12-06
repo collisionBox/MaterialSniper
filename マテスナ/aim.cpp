@@ -63,8 +63,8 @@ void Aim::Draw(Target& tag, Bullet& bullet)
 	
 	DrawRotaGraphF(x, y, 1, 0, aimming, true);//ÉNÉçÉXÉwÉA
 
-	DrawFormatString(50, 50, green, "%f:%f", x,y);
-	DrawCircle(x, y, 5, red, true);
+	//DrawFormatString(50, 50, green, "%f:%f", x,y);
+	//DrawCircle(x, y, 5, red, true);
 	text.TextDraw(50, 0, "1234");
 }
 
@@ -108,8 +108,8 @@ void Aim::MouseBehavior(Director director, Target& tag, float& gameTime, float& 
 		ExRate = 1.0f;
 		aimming = lectilHandle;
 		isRightClick = false;
-		xBehavior = (15 * cos(v))/ magnificationRate;
-		yBehavior = (15 * sin(v * 2))/ magnificationRate;
+		xBehavior = (15 * cos(v)) / magnificationRate;
+		yBehavior = (15 * sin(v * 2)) / magnificationRate;
 	}
 	
 	FireFlagBehavior();
@@ -230,5 +230,5 @@ void Aim::O2gauge(Director director, float& gameTIme, float& delatTime)
 			}
 		}
 	}
-	DrawFormatString(500, 500, green, "%f", breath);
+	//DrawFormatString(500, 500, green, "%f", breath);
 }
