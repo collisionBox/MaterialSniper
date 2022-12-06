@@ -41,7 +41,7 @@ void Director::O2Gauge(Aim& aim)
 
 	DrawBox(960 - 251, 950, 960 + 251, 1000, white, false);
 	DrawBoxAA(min, 949, valiable, 999, GetColor(red, green, 0), true);
-	DrawFormatString(700, 700, green, "%f\n%d",gauge, valiable);
+	//DrawFormatString(700, 700, green, "%f\n%d",gauge, valiable);
 }
 
 void Director::ReloadBlanking(Aim& aim)
