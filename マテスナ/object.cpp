@@ -27,12 +27,14 @@ Target::~Target()
 void Target::Init()
 {
 	x = (float)(GetRand(1920 - imgSizeX) + imgHalfSizeX);
-	y = (float)(GetRand(1080 - imgSizeY) + imgHalfSizeY);
+	y = (float)(GetRand(1080 - imgSizeY - 100) + imgHalfSizeY);
 	z = 10;
 	r = 10;
 	alpha = 0;
 	hitNum = 0;
 	criticalNum = 0;
+	point = 0;
+	breakNum = 0;
 	fadeFlag = false;
 	isAlive = false;
 	prevAlive = false;
@@ -122,8 +124,8 @@ void Target::Behavior(Bullet& bul, float& gameTime)
 		if (alpha < 0)
 		{
 			prevAlive = isAlive;
-			x = (float)(GetRand(1920 - imgHalfSizeX));
-			y = (float)(GetRand(1080 - imgHalfSizeY));
+			x = (float)(GetRand(1920 - imgSizeX) + imgHalfSizeX);
+			y = (float)(GetRand(1080 - imgSizeY - 100) + imgHalfSizeY);
 
 		}
 
@@ -180,6 +182,7 @@ void Target::HitTest(float& mouseX, float& mouseY, bool flag, float& gameTime)
 			deadTime = gameTime;
 			isHit = true;
 			isAlive = false;
+			breakNum += 1;
 		}
 	}
 }
