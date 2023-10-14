@@ -61,4 +61,5 @@ private:
 	int hitNum;
 	int criticalNum;
 	int point;
+	int breakNum;
 };
